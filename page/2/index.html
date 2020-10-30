@@ -1,0 +1,876 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20%E6%95%B4%E9%99%A4%E9%97%AE%E9%A2%98/">【牛客网】整除问题</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20%E6%95%B4%E9%99%A4%E9%97%AE%E9%A2%98/">
+          
+          
+            
+          
+          https://www.nowcoder.com/questionTerminal/8e29045de1c84d349b43fdb123ab586a
+问题描述给定n，a求最大的k，使n！可以被a^k整除但不能被a^(k+1)整除。
+输入两个整数n(2&lt;=n&lt;=1000)，a(2&lt;=a&lt;=1000)
+输出一个整数.
+样例输入6 10
+
+样例输出1
+
+解题思路n！与 a^k 可
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-06-02 19:27" pubdate>
+              2019-06-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BF%9D%E7%A0%94/">保研</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%BA%E8%AF%95/">机试</a>
+            
+              <a href="/tags/%E5%9B%A0%E6%95%B0%E5%88%86%E8%A7%A3/">因数分解</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20%E8%B4%A8%E5%9B%A0%E6%95%B0%E5%88%86%E8%A7%A3/">【牛客网】质因数分解</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20%E8%B4%A8%E5%9B%A0%E6%95%B0%E5%88%86%E8%A7%A3/">
+          
+          
+            
+          
+          https://www.nowcoder.com/questionTerminal/20426b85f7fc4ba8b0844cc04807fbd9
+问题描述求正整数N(N&gt;1)的质因数的个数。 相同的质因数需要重复计算。如120=22235，共有5个质因数。
+输入可能有多组测试数据，每组测试数据的输入是一个正整数N，(1&lt;N&lt;10^9)。
+
+输出对于每组数据，输出N的质因数的个
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-06-02 19:27" pubdate>
+              2019-06-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BF%9D%E7%A0%94/">保研</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%BA%E8%AF%95/">机试</a>
+            
+              <a href="/tags/%E5%9B%A0%E6%95%B0%E5%88%86%E8%A7%A3/">因数分解</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/05/27/%E6%9C%BA%E8%AF%95/0527%20%E7%BA%A6%E6%95%B0%E7%9A%84%E4%B8%AA%E6%95%B0/">【清华机试原题】约数的个数</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/05/27/%E6%9C%BA%E8%AF%95/0527%20%E7%BA%A6%E6%95%B0%E7%9A%84%E4%B8%AA%E6%95%B0/">
+          
+          
+            
+          
+          题目描述输入n个整数,依次输出每个数的约数的个数
+输入描述输入的第一行为N，即数组的个数(N&lt;=1000)
+接下来的1行包括N个整数，其中每个数的范围为(1&lt;=Num&lt;=1000000000)
+当N=0时输入结束。
+
+输出描述可能有多组输入数据，对于每组输入数据，
+输出N行，其中每一行对应上面的一个数的约数的个数。
+
+示例1
+输入5
+1 3 4 6 12
+
+输出1
+2
+3
+4
+6
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-05-27 19:27" pubdate>
+              2019-05-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BF%9D%E7%A0%94/">保研</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%BA%E8%AF%95/">机试</a>
+            
+              <a href="/tags/%E5%9B%A0%E6%95%B0%E5%88%86%E8%A7%A3/">因数分解</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20Least%20Common%20Multiple(LCM)/">【ZOJ1797】Least Common Multiple(LCM)</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20Least%20Common%20Multiple(LCM)/">
+          
+          
+            
+          
+          http://acm.zju.edu.cn/onlinejudge/showProblem.do?problemId=797
+题目描述The least common multiple (LCM) of a set of positive integers is the smallest positive integer which is divisible by all the numbers 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-05-22 19:27" pubdate>
+              2019-05-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BF%9D%E7%A0%94/">保研</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%BA%E8%AF%95/">机试</a>
+            
+              <a href="/tags/%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0/">最小公倍数</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20Digital%20Roots/">【HDOJ1013】Digital Roots</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20Digital%20Roots/">
+          
+          
+            
+          
+          http://acm.hdu.edu.cn/showproblem.php?pid=1013
+题目描述The digital root of a positive integer is found by summing the digits of the integer. If the resulting value is a single digit then that digit is the
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-05-22 19:27" pubdate>
+              2019-05-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BF%9D%E7%A0%94/">保研</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%BA%E8%AF%95/">机试</a>
+            
+              <a href="/tags/%E6%95%B0%E4%BD%8D%E6%8B%86%E8%A7%A3/">数位拆解</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20%E5%8F%88%E4%B8%80%E7%89%88A+B/">【牛客网】又一版A+B</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20%E5%8F%88%E4%B8%80%E7%89%88A+B/">
+          
+          
+            
+          
+          https://www.nowcoder.com/questionTerminal/9255c05d45b8406c9b588d7c57aa920b
+问题描述输入两个不超过整型定义的非负10进制整数A和B(&lt;=231-1)，输出A+B的m (1 &lt; m &lt;10)进制数。
+输入描述输入格式：测试输入包含若干测试用例。每个测试用例占一行，给出m和A，B的值。当m为0时输入结束。
+输出
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-05-22 19:27" pubdate>
+              2019-05-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BF%9D%E7%A0%94/">保研</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%BA%E8%AF%95/">机试</a>
+            
+              <a href="/tags/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2/">进制转换</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20%E6%95%B0%E5%88%B6%E8%BD%AC%E6%8D%A2/">【Bailian2710】数制转换</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20%E6%95%B0%E5%88%B6%E8%BD%AC%E6%8D%A2/">
+          
+          
+            
+          
+          Bailian2710 http://noi.openjudge.cn/ch0113/01/
+问题描述求任意两个不同进制非负整数的转换（2进制～16进制），所给整数在long所能表达的范围之内。不同进制的表示符号为（0，1，…，9，a，b，…，f）或者（0，1，…，9，A，B，…，F）。
+输入输入只有一行，包含三个整数a，n，b。a表示其后的n 是a进制整数，b表示欲将a进制整数n转换成b进制整数
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-05-22 19:27" pubdate>
+              2019-05-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BF%9D%E7%A0%94/">保研</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%BA%E8%AF%95/">机试</a>
+            
+              <a href="/tags/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2/">进制转换</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0(GCD)/">【牛客网】最大公约数</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0(GCD)/">
+          
+          
+            
+          
+          问题描述输入两个正整数，求其最大公约数。
+输入描述测试数据有多组，每组输入两个正整数。
+输出描述对于每组输入,请输出其最大公约数。
+示例输入49 14
+
+示例输出7
+
+问题思路设两个数为A、B，其最大公约数为g，则：（k与l均为整数）$$A = g * k$$
+$$B = g * l$$
+假设A &gt;= B，则：（m与r均为整数）$$A = B*m + r$$即$$r = g * ( k - 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-05-22 19:27" pubdate>
+              2019-05-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BF%9D%E7%A0%94/">保研</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%BA%E8%AF%95/">机试</a>
+            
+              <a href="/tags/%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0/">最大公约数</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/05/22/%E6%9C%BA%E8%AF%95/%E6%B1%82%E7%B4%A0%E6%95%B0%E8%A6%81%E7%82%B9/">求素数的方法</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/05/22/%E6%9C%BA%E8%AF%95/%E6%B1%82%E7%B4%A0%E6%95%B0%E8%A6%81%E7%82%B9/">
+          
+          
+            
+          
+          Tips：
+
+直接判断（上界可以缩减为平方根，0、1和负数不是素数）
+if(n==0||n==1||n&lt;0) return false; 
+int bound = (int)sqrt(n)+1;
+for(int i=2; i&lt;=bound &amp;&amp; i!=n; i++)&#123;
+    if(n%i==0) return false;
+&#125;
+return tru
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-05-22 19:27" pubdate>
+              2019-05-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BF%9D%E7%A0%94/">保研</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%BA%E8%AF%95/">机试</a>
+            
+              <a href="/tags/%E7%B4%A0%E6%95%B0/">素数</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/02/12/%E5%8D%9A%E5%AE%A2/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA4%E5%8A%9F%E8%83%BD%E5%AE%8C%E5%96%84/">【从零开始的Hexo博客搭建】功能完善</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/02/12/%E5%8D%9A%E5%AE%A2/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA4%E5%8A%9F%E8%83%BD%E5%AE%8C%E5%96%84/">
+          
+          
+            
+          
+          完成博客的基本构建和美化之后，接下来需要在功能方面做一些完善。
+添加标签、分类页面首先需要新建页面，在根目录下分别执行
+$ hexo new page tags
+$ hexo new page categories
+
+进入根目录下的 source 文件夹可以看到生成了两个新文件夹 categories 和 tags 分别进行编辑 index.md 文件，修改为对应类型
+source/tags/in
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-02-12 19:53" pubdate>
+              2019-02-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Hexo/">Hexo</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "好雨知时节，当春乃发生&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

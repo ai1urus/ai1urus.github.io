@@ -206,7 +206,521 @@ Quick
     </article>
   </div>
 
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/09/17/C++/C++%20%E5%AD%97%E7%AC%A6%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/">C++	字符数组常用函数</a>
+      </h1>
 
+      <p class="index-excerpt">
+        <a href="/2019/09/17/C++/C++%20%E5%AD%97%E7%AC%A6%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/">
+          
+          
+            
+          
+          覆盖 sprintfchar charr3[100] = &quot;lilei,nihao&quot;;  
+int goodFrameCount = 100;  
+sprintf_s(charr3, &quot;chess%d.jpg&quot;, goodFrameCount);	//将charr3原内容覆盖  
+
+拷贝 strcpystrcpy_s(charr5, charr6);			/
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-09-17 22:23" pubdate>
+              2019-09-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E6%95%B0%E7%BB%84/">字符数组</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/09/17/C++/C++memset/">C++	memset的使用</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/09/17/C++/C++memset/">
+          
+          
+            
+          
+          Tips：
+
+头文件&lt;memory.h&gt;
+
+格式memset(数组, 初始化字符, 要初始化的字节大小)例如将int数组初始化为0：memset(dp, 0, sizeof(dp))
+
+要注意是对每个字节初始化，并不是对数组元素初始化。例如执行memset(dp, 1, sizeofo(dp))，最后得出的每个 int 其值为00000001 00000001 00000001 000
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-09-17 22:23" pubdate>
+              2019-09-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/memset/">memset</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/09/17/C++/C++%E5%A0%86/">C++	堆的使用</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/09/17/C++/C++%E5%A0%86/">
+          
+          
+            
+          
+          Tips：
+
+priority_queue 默认最大堆，头文件
+
+最小堆的实现转为相反数存储priority_queue&lt;int&gt; pq;
+pq.push( -1 * v1);
+pq.push( -1 * v2); 
+pq.push( -1 * v3);
+
+编写结构体并重载&lt;运算符struct Node &#123;
+    int value;
+    int idx;
+   
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-09-17 22:23" pubdate>
+              2019-09-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/%E5%A0%86/">堆</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/09/17/C++/C++%E5%AD%97%E7%AC%A6%E8%BD%AC%E6%8D%A2/">C++	int、string、char互转</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/09/17/C++/C++%E5%AD%97%E7%AC%A6%E8%BD%AC%E6%8D%A2/">
+          
+          
+            
+          
+          int与string互转int转string// C++ 11 标准
+string to_string(int ) 
+
+string转int// C 标准——atoi
+
+string text = &quot;1346868&quot;;
+
+int num = atoi(text.c_str());
+
+string与char数组互转string转char数组text.data(); 	// 不带&
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-09-17 22:23" pubdate>
+              2019-09-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/">类型转换</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/09/17/C++/C++%E6%8C%87%E9%92%88/">C++	指针相关问题总结</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/09/17/C++/C++%E6%8C%87%E9%92%88/">
+          
+          
+            
+          
+          关于树的创建在一个循环体里，必须采用
+while (Q.size() &gt; 1) &#123;
+	HuffNode* r = new HuffNode(Q.top());
+	Q.pop();
+	HuffNode* l = new HuffNode(Q.top());
+	Q.pop();
+	HuffNode newnode(l, r, l-&gt;value+r-&gt;value);
+	Q.p
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-09-17 22:23" pubdate>
+              2019-09-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/%E6%8C%87%E9%92%88/">指针</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/09/17/C++/C++%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/">C++	输入输出总结</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/09/17/C++/C++%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/">
+          
+          
+            
+          
+          输入标准输入流Tips：
+
+cin会忽略并清除缓冲区中空格、tab或换行这些分隔符，继续读取下一个字符。若缓冲区为空，则继续等待；如果读取成功，字符后面的分隔符会留在缓冲区，不做处理。
+为了使cin可以读取空格，可以使用cin&gt;&gt;noskipws&gt;&gt;input;以防止跳过空白
+
+字符输入流Tips：
+
+头文件
+初始化方法 std::istringstream var(str
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-09-17 22:23" pubdate>
+              2019-09-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/%E8%AF%AD%E6%B3%95/">语法</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20A%20sequence%20of%20numbers/">【HDU2817】A sequence of numbers</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20A%20sequence%20of%20numbers/">
+          
+          
+            
+          
+          http://acm.hdu.edu.cn/showproblem.php?pid=2817
+问题描述Xinlv wrote some sequences on the paper a long time ago, they might be arithmetic or geometric sequences. The numbers are not very clear now, and onl
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-06-02 19:27" pubdate>
+              2019-06-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BF%9D%E7%A0%94/">保研</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%BA%E8%AF%95/">机试</a>
+            
+              <a href="/tags/%E4%BA%8C%E5%88%86%E6%B1%82%E5%B9%82/">二分求幂</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20Tr%20A/">【HDU1575】Tr A</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20Tr%20A/">
+          
+          
+            
+          
+          http://acm.hdu.edu.cn/showproblem.php?pid=2817
+问题描述A为一个方阵，则Tr A表示A的迹（就是主对角线上各项的和），现要求Tr(A^k)%9973。
+输入数据的第一行是一个T，表示有T组数据。每组数据的第一行有n(2 &lt;= n &lt;= 10)和k(2 &lt;= k &lt; 10^9)两个数据。接下来有n行，每行有n个数据，每个数据的范围
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-06-02 19:27" pubdate>
+              2019-06-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BF%9D%E7%A0%94/">保研</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%BA%E8%AF%95/">机试</a>
+            
+              <a href="/tags/%E4%BA%8C%E5%88%86%E6%B1%82%E5%B9%82/">二分求幂</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20%E4%BA%BA%E8%A7%81%E4%BA%BA%E7%88%B1A%5EB/">【HDU2035】人见人爱A^B</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20%E4%BA%BA%E8%A7%81%E4%BA%BA%E7%88%B1A%5EB/">
+          
+          
+            
+          
+          http://acm.hdu.edu.cn/showproblem.php?pid=2035
+问题描述求A^B的最后三位数表示的整数。说明：A^B的含义是“A的B次方”
+输入输入数据包含多个测试实例，每个实例占一行，由两个正整数A和B组成（1&lt;=A,B&lt;=10000），如果A=0, B=0，则表示输入数据的结束，不做处理。
+输出对于每个测试实例，请输出A^B的最后三位表示的整数，每个输
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-06-02 19:27" pubdate>
+              2019-06-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E4%BF%9D%E7%A0%94/">保研</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%BA%E8%AF%95/">机试</a>
+            
+              <a href="/tags/%E4%BA%8C%E5%88%86%E6%B1%82%E5%B9%82/">二分求幂</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 
@@ -296,7 +810,7 @@ Quick
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "An elegant Material-Design theme for Hexo&nbsp;",
+        "好雨知时节，当春乃发生&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

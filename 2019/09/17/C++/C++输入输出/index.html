@@ -1,0 +1,595 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>C++	输入输出总结 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-09-17 22:23" pubdate>
+        2019年9月17日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      909 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      10
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">C++	输入输出总结</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h1><h2 id="标准输入流"><a href="#标准输入流" class="headerlink" title="标准输入流"></a>标准输入流</h2><p><strong>Tips：</strong></p>
+<ul>
+<li>cin会忽略并清除缓冲区中空格、tab或换行这些分隔符，继续读取下一个字符。若缓冲区为空，则继续等待；如果读取成功，字符后面的分隔符会留在缓冲区，不做处理。</li>
+<li>为了使cin可以读取空格，可以使用<code>cin&gt;&gt;noskipws&gt;&gt;input;</code>以防止跳过空白</li>
+</ul>
+<h2 id="字符输入流"><a href="#字符输入流" class="headerlink" title="字符输入流"></a>字符输入流</h2><p><strong>Tips：</strong></p>
+<ul>
+<li>头文件<sstream></li>
+<li>初始化方法 <code>std::istringstream var(string s);</code>，使用方法与istream类似，只是将已有字符变量作为输入缓冲区</li>
+</ul>
+<h2 id="读取单个字符"><a href="#读取单个字符" class="headerlink" title="读取单个字符"></a>读取单个字符</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>cin.get()</th>
+<th>cin.get(char var)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>返回类型</td>
+<td>int</td>
+<td>istream</td>
+</tr>
+<tr>
+<td>返回值</td>
+<td>读取字符的ASCII码</td>
+<td>istream对象</td>
+</tr>
+<tr>
+<td>失败时返回</td>
+<td>EOF (-1)</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>Tips：</strong></p>
+<ul>
+<li>由于 cin.get(char var) 方法返回cin对象，因此可以支持链式操作，如cin.get(b).get(c)</li>
+</ul>
+<h2 id="读取一行"><a href="#读取一行" class="headerlink" title="读取一行"></a>读取一行</h2><table>
+<thead>
+<tr>
+<th>结束符</th>
+<th>istream流</th>
+<th>string流</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>换行符</td>
+<td>istream&amp; get ( char* s, streamsize n )</td>
+<td>istream&amp; getline ( istream&amp; is, string&amp; str)</td>
+</tr>
+<tr>
+<td>指定结束符</td>
+<td>istream&amp; get ( char* s, streamsize n, char delim )</td>
+<td>istream&amp; getline ( istream&amp; is, string&amp; str, char delim)</td>
+</tr>
+</tbody></table>
+<p><strong>Tips：</strong></p>
+<ul>
+<li>读取到char数组时，结尾会自动填一个 <code>\0</code>  </li>
+<li>istream流的<strong>cin.getline</strong>方法与<strong>cin.get</strong>方法类似，区别在于<strong>get</strong>方法会将结束符留在缓冲区，而<strong>getline</strong>方法会删除结束符</li>
+<li>string流的<strong>getline</strong>方法遇到结束符时，会将结束符一并读入指定的string中，再将结束符替换为空字符</li>
+</ul>
+<h1 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h1><h2 id="格式化输出-printf"><a href="#格式化输出-printf" class="headerlink" title="格式化输出 printf"></a>格式化输出 printf</h2><table>
+<thead>
+<tr>
+<th>%d</th>
+<th>十进制有符号整数</th>
+<th>%u</th>
+<th>十进制无符号整数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%f</td>
+<td>浮点数</td>
+<td>%s</td>
+<td>字符串</td>
+</tr>
+<tr>
+<td>%c</td>
+<td>单个字符</td>
+<td>%p</td>
+<td>指针的值</td>
+</tr>
+<tr>
+<td>%e</td>
+<td>指数形式的浮点数</td>
+<td>%g</td>
+<td>把输出的值按照%e或者%f类型中输出长度较小的方式输出</td>
+</tr>
+<tr>
+<td>%o</td>
+<td>无符号以<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%85%AB%E8%BF%9B%E5%88%B6">八进制</a>表示的整数</td>
+<td>%x, %X</td>
+<td>无符号以<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6">十六进制</a>表示的整数</td>
+</tr>
+</tbody></table>
+<h3 id="Tip1：场宽"><a href="#Tip1：场宽" class="headerlink" title="Tip1：场宽"></a>Tip1：场宽</h3><ul>
+<li><p>可以在”%”和字母之间插进数字表示最大<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%9C%BA%E5%AE%BD">场宽</a>。例如：%3d 表示输出3位整型数, 不够3位右对齐。</p>
+</li>
+<li><p>%9.2f 表示输出场宽（数值总长度）为9的浮点数, 其中小数位为2, 整数位为7,小数点占一位, 不够9位右对齐。</p>
+</li>
+<li><p>%8s 表示输出8个<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AD%97%E7%AC%A6">字符</a>的字符串, 不够8个字符右对齐。</p>
+</li>
+</ul>
+<ul>
+<li><p>如果字符串的长度、或整型数位数超过说明的场宽, 将按其实际长度输出。但对浮点数, 若整数部分位数超过了说明的整数位宽度, 将按实际整数位输出;若小数部分位数超过了说明的小数位宽度, 则按说明的宽度以四舍五入输出。</p>
+</li>
+<li><p>若想在输出值前加一些0, 就应在场宽项前加个0。例如：%04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。</p>
+</li>
+<li><p>如果用浮点数表示<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AD%97%E7%AC%A6">字符</a>或<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%95%B4%E5%9E%8B%E9%87%8F">整型量</a>的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。例如：%6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。</p>
+</li>
+<li></li>
+</ul>
+<h3 id="Tip2：长型数"><a href="#Tip2：长型数" class="headerlink" title="Tip2：长型数"></a>Tip2：长型数</h3><ul>
+<li>可以在”%”和字母之间加小写字母l, 表示输出的是长型数。例如：%ld 表示输出long整数，%lf 表示输出<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/double">double</a>浮点数</li>
+</ul>
+<h3 id="Tip3：左对齐"><a href="#Tip3：左对齐" class="headerlink" title="Tip3：左对齐"></a>Tip3：左对齐</h3><ul>
+<li>在”%”和字母之间加入一个”-“ 号可说明输出为左对齐, 否则为右对齐。例如：%-7d 表示输出7位整数左对齐，%-10s 表示输出10个<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AD%97%E7%AC%A6">字符</a>左对齐</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AF%AD%E6%B3%95/">语法</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/09/17/C++/C++%E6%8C%87%E9%92%88/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C++	指针相关问题总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20A%20sequence%20of%20numbers/">
+                        <span class="hidden-mobile">【HDU2817】A sequence of numbers</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "C++	输入输出总结&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

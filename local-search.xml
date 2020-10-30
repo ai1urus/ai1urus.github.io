@@ -16,5 +16,591 @@
   
   
   
+  <entry>
+    <title>C++	字符数组常用函数</title>
+    <link href="/2019/09/17/C++/C++%20%E5%AD%97%E7%AC%A6%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/"/>
+    <url>/2019/09/17/C++/C++%20%E5%AD%97%E7%AC%A6%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="覆盖-sprintf"><a href="#覆盖-sprintf" class="headerlink" title="覆盖 sprintf"></a>覆盖 sprintf</h1><pre><code class="hljs c++"><span class="hljs-keyword">char</span> charr3[<span class="hljs-number">100</span>] = <span class="hljs-string">&quot;lilei,nihao&quot;</span>;  <span class="hljs-keyword">int</span> goodFrameCount = <span class="hljs-number">100</span>;  sprintf_s(charr3, <span class="hljs-string">&quot;chess%d.jpg&quot;</span>, goodFrameCount);<span class="hljs-comment">//将charr3原内容覆盖  </span></code></pre><h1 id="拷贝-strcpy"><a href="#拷贝-strcpy" class="headerlink" title="拷贝 strcpy"></a>拷贝 strcpy</h1><pre><code class="hljs c++">strcpy_s(charr5, charr6);<span class="hljs-comment">//赋值操作， charr6内容赋值给charr5  </span>strcpy_s(charr5, charr6, len);<span class="hljs-comment">//赋值操作， charr6长度为len的内容赋值给charr5  </span></code></pre><h1 id="连接-strcat"><a href="#连接-strcat" class="headerlink" title="连接 strcat"></a>连接 strcat</h1><pre><code class="hljs C++">strcat_s(charr5, <span class="hljs-string">&quot; juice&quot;</span>);<span class="hljs-comment">// 将&quot;juice&quot;连接到charr5的后面</span></code></pre><h1 id="比较-strcmp"><a href="#比较-strcmp" class="headerlink" title="比较 strcmp"></a>比较 strcmp</h1><pre><code class="hljs C++"><span class="hljs-comment">// 从每个字符串的第一个字符开始比较，直到对应字符不同或某一字符串到达结尾</span><span class="hljs-built_in">strcmp</span>(<span class="hljs-keyword">char</span>* a, <span class="hljs-keyword">char</span>* b);</code></pre><p><strong>Tips：</strong></p><ul><li>在某些标准中可能因为安全问题禁用某些函数，需要在原函数名后加上_s</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+      <tag>字符数组</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>C++	memset的使用</title>
+    <link href="/2019/09/17/C++/C++memset/"/>
+    <url>/2019/09/17/C++/C++memset/</url>
+    
+    <content type="html"><![CDATA[<p><strong>Tips：</strong></p><ul><li><p>头文件&lt;memory.h&gt;</p></li><li><p>格式memset(数组, 初始化字符, 要初始化的字节大小)<br>例如将int数组初始化为0：<code>memset(dp, 0, sizeof(dp))</code></p></li><li><p>要注意是对每个字节初始化，并不是对数组元素初始化。例如执行<code>memset(dp, 1, sizeofo(dp))</code>，最后得出的每个 int 其值为<code>00000001 00000001 00000001 00000001</code>，转化为十进制后不为1</p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+      <tag>memset</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>C++	堆的使用</title>
+    <link href="/2019/09/17/C++/C++%E5%A0%86/"/>
+    <url>/2019/09/17/C++/C++%E5%A0%86/</url>
+    
+    <content type="html"><![CDATA[<p><strong>Tips：</strong></p><ul><li>priority_queue 默认最大堆，头文件<queue></li></ul><h1 id="最小堆的实现"><a href="#最小堆的实现" class="headerlink" title="最小堆的实现"></a>最小堆的实现</h1><h2 id="转为相反数存储"><a href="#转为相反数存储" class="headerlink" title="转为相反数存储"></a>转为相反数存储</h2><pre><code class="hljs C++"><span class="hljs-built_in">priority_queue</span>&lt;<span class="hljs-keyword">int</span>&gt; pq;pq.push( <span class="hljs-number">-1</span> * v1);pq.push( <span class="hljs-number">-1</span> * v2); pq.push( <span class="hljs-number">-1</span> * v3);</code></pre><h2 id="编写结构体并重载-lt-运算符"><a href="#编写结构体并重载-lt-运算符" class="headerlink" title="编写结构体并重载&lt;运算符"></a>编写结构体并重载&lt;运算符</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> &#123;</span>    <span class="hljs-keyword">int</span> value;    <span class="hljs-keyword">int</span> idx;    Node (<span class="hljs-keyword">int</span> v, <span class="hljs-keyword">int</span> i): value(v), idx(i) &#123;&#125;<span class="hljs-comment">//  friend bool operator &lt; (const struct Node &amp;n1, const struct Node &amp;n2) ;</span>    <span class="hljs-keyword">friend</span> <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span> &gt; (<span class="hljs-keyword">const</span> struct Node &amp;n1, <span class="hljs-keyword">const</span> struct Node &amp;n2) ;&#125;; <span class="hljs-keyword">inline</span> <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span> &gt; (<span class="hljs-keyword">const</span> struct Node &amp;n1, <span class="hljs-keyword">const</span> struct Node &amp;n2) &#123;    <span class="hljs-keyword">return</span> n1.value &gt; n2.value;&#125;<span class="hljs-built_in">priority_queue</span>&lt;Node, <span class="hljs-built_in">vector</span>&lt;Node&gt;, greater&lt;Node&gt; &gt; pq; <span class="hljs-comment">// 此时greater会调用 &gt; 方法来确认Node的顺序，此时pq是最小堆</span></code></pre><h2 id="自定义比较方法"><a href="#自定义比较方法" class="headerlink" title="自定义比较方法"></a>自定义比较方法</h2><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">cmp</span>&#123;</span><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(Node n1, Node n2)</span></span>&#123;<span class="hljs-keyword">return</span> n1.value &lt; n2.value;&#125;&#125;<span class="hljs-built_in">priority_queue</span>&lt;Node, <span class="hljs-built_in">vector</span>&lt;Node&gt;, cmp&gt; pq;</code></pre><h1 id="待补充"><a href="#待补充" class="headerlink" title="待补充"></a>待补充</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+      <tag>堆</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>C++	int、string、char互转</title>
+    <link href="/2019/09/17/C++/C++%E5%AD%97%E7%AC%A6%E8%BD%AC%E6%8D%A2/"/>
+    <url>/2019/09/17/C++/C++%E5%AD%97%E7%AC%A6%E8%BD%AC%E6%8D%A2/</url>
+    
+    <content type="html"><![CDATA[<h1 id="int与string互转"><a href="#int与string互转" class="headerlink" title="int与string互转"></a>int与string互转</h1><h2 id="int转string"><a href="#int转string" class="headerlink" title="int转string"></a>int转string</h2><pre><code class="hljs c++"><span class="hljs-comment">// C++ 11 标准</span><span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">to_string</span><span class="hljs-params">(<span class="hljs-keyword">int</span> )</span> </span></code></pre><h2 id="string转int"><a href="#string转int" class="headerlink" title="string转int"></a>string转int</h2><pre><code class="hljs C++"><span class="hljs-comment">// C 标准——atoi</span><span class="hljs-built_in">string</span> text = <span class="hljs-string">&quot;1346868&quot;</span>;<span class="hljs-keyword">int</span> num = atoi(text.c_str());</code></pre><h1 id="string与char数组互转"><a href="#string与char数组互转" class="headerlink" title="string与char数组互转"></a>string与char数组互转</h1><h2 id="string转char数组"><a href="#string转char数组" class="headerlink" title="string转char数组"></a>string转char数组</h2><pre><code class="hljs C++">text.data(); <span class="hljs-comment">// 不带&#x27;\0&#x27;</span>text.c_str(); <span class="hljs-comment">// 带&#x27;\0&#x27;</span>copy();</code></pre><h2 id="char数组转-string"><a href="#char数组转-string" class="headerlink" title="char数组转 string"></a>char数组转 string</h2><pre><code class="hljs C++"><span class="hljs-keyword">char</span> a[<span class="hljs-number">100</span>];<span class="hljs-built_in">string</span> s = a;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+      <tag>类型转换</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>C++	指针相关问题总结</title>
+    <link href="/2019/09/17/C++/C++%E6%8C%87%E9%92%88/"/>
+    <url>/2019/09/17/C++/C++%E6%8C%87%E9%92%88/</url>
+    
+    <content type="html"><![CDATA[<h2 id="关于树的创建"><a href="#关于树的创建" class="headerlink" title="关于树的创建"></a>关于树的创建</h2><p>在一个循环体里，必须采用</p><pre><code class="hljs C++"><span class="hljs-keyword">while</span> (Q.size() &gt; <span class="hljs-number">1</span>) &#123;HuffNode* r = <span class="hljs-keyword">new</span> HuffNode(Q.top());Q.pop();HuffNode* l = <span class="hljs-keyword">new</span> HuffNode(Q.top());Q.pop();<span class="hljs-function">HuffNode <span class="hljs-title">newnode</span><span class="hljs-params">(l, r, l-&gt;value+r-&gt;value)</span></span>;Q.push(newnode);<span class="hljs-comment">// 指向该地址，地址内容变了。。</span>&#125;</code></pre><p>而不是</p><pre><code class="hljs c++"><span class="hljs-keyword">while</span> (Q.size() &gt; <span class="hljs-number">1</span>) &#123;HuffNode r = Q.top();Q.pop();HuffNode l = Q.top();Q.pop();<span class="hljs-function">HuffNode <span class="hljs-title">newnode</span><span class="hljs-params">(&amp;l, &amp;r, l.value+r.value)</span></span>;Q.push(newnode);<span class="hljs-comment">// 指向该地址，地址内容变了。。</span>&#125;</code></pre><p>因为这样创建的对象，其生命周期只存在于while循环体内，其地址固定，每次while循环之后对应的l、r值都会改变，所以必须使用指针新建一块存储空间，并将HuffNode的值拷贝过去</p><h2 id="待补充"><a href="#待补充" class="headerlink" title="待补充"></a>待补充</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+      <tag>指针</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>C++	输入输出总结</title>
+    <link href="/2019/09/17/C++/C++%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/"/>
+    <url>/2019/09/17/C++/C++%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/</url>
+    
+    <content type="html"><![CDATA[<h1 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h1><h2 id="标准输入流"><a href="#标准输入流" class="headerlink" title="标准输入流"></a>标准输入流</h2><p><strong>Tips：</strong></p><ul><li>cin会忽略并清除缓冲区中空格、tab或换行这些分隔符，继续读取下一个字符。若缓冲区为空，则继续等待；如果读取成功，字符后面的分隔符会留在缓冲区，不做处理。</li><li>为了使cin可以读取空格，可以使用<code>cin&gt;&gt;noskipws&gt;&gt;input;</code>以防止跳过空白</li></ul><h2 id="字符输入流"><a href="#字符输入流" class="headerlink" title="字符输入流"></a>字符输入流</h2><p><strong>Tips：</strong></p><ul><li>头文件<sstream></li><li>初始化方法 <code>std::istringstream var(string s);</code>，使用方法与istream类似，只是将已有字符变量作为输入缓冲区</li></ul><h2 id="读取单个字符"><a href="#读取单个字符" class="headerlink" title="读取单个字符"></a>读取单个字符</h2><table><thead><tr><th></th><th>cin.get()</th><th>cin.get(char var)</th></tr></thead><tbody><tr><td>返回类型</td><td>int</td><td>istream</td></tr><tr><td>返回值</td><td>读取字符的ASCII码</td><td>istream对象</td></tr><tr><td>失败时返回</td><td>EOF (-1)</td><td></td></tr></tbody></table><p><strong>Tips：</strong></p><ul><li>由于 cin.get(char var) 方法返回cin对象，因此可以支持链式操作，如cin.get(b).get(c)</li></ul><h2 id="读取一行"><a href="#读取一行" class="headerlink" title="读取一行"></a>读取一行</h2><table><thead><tr><th>结束符</th><th>istream流</th><th>string流</th></tr></thead><tbody><tr><td>换行符</td><td>istream&amp; get ( char* s, streamsize n )</td><td>istream&amp; getline ( istream&amp; is, string&amp; str)</td></tr><tr><td>指定结束符</td><td>istream&amp; get ( char* s, streamsize n, char delim )</td><td>istream&amp; getline ( istream&amp; is, string&amp; str, char delim)</td></tr></tbody></table><p><strong>Tips：</strong></p><ul><li>读取到char数组时，结尾会自动填一个 <code>\0</code>  </li><li>istream流的<strong>cin.getline</strong>方法与<strong>cin.get</strong>方法类似，区别在于<strong>get</strong>方法会将结束符留在缓冲区，而<strong>getline</strong>方法会删除结束符</li><li>string流的<strong>getline</strong>方法遇到结束符时，会将结束符一并读入指定的string中，再将结束符替换为空字符</li></ul><h1 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h1><h2 id="格式化输出-printf"><a href="#格式化输出-printf" class="headerlink" title="格式化输出 printf"></a>格式化输出 printf</h2><table><thead><tr><th>%d</th><th>十进制有符号整数</th><th>%u</th><th>十进制无符号整数</th></tr></thead><tbody><tr><td>%f</td><td>浮点数</td><td>%s</td><td>字符串</td></tr><tr><td>%c</td><td>单个字符</td><td>%p</td><td>指针的值</td></tr><tr><td>%e</td><td>指数形式的浮点数</td><td>%g</td><td>把输出的值按照%e或者%f类型中输出长度较小的方式输出</td></tr><tr><td>%o</td><td>无符号以<a href="https://baike.baidu.com/item/%E5%85%AB%E8%BF%9B%E5%88%B6">八进制</a>表示的整数</td><td>%x, %X</td><td>无符号以<a href="https://baike.baidu.com/item/%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6">十六进制</a>表示的整数</td></tr></tbody></table><h3 id="Tip1：场宽"><a href="#Tip1：场宽" class="headerlink" title="Tip1：场宽"></a>Tip1：场宽</h3><ul><li><p>可以在”%”和字母之间插进数字表示最大<a href="https://baike.baidu.com/item/%E5%9C%BA%E5%AE%BD">场宽</a>。例如：%3d 表示输出3位整型数, 不够3位右对齐。</p></li><li><p>%9.2f 表示输出场宽（数值总长度）为9的浮点数, 其中小数位为2, 整数位为7,小数点占一位, 不够9位右对齐。</p></li><li><p>%8s 表示输出8个<a href="https://baike.baidu.com/item/%E5%AD%97%E7%AC%A6">字符</a>的字符串, 不够8个字符右对齐。</p></li></ul><ul><li><p>如果字符串的长度、或整型数位数超过说明的场宽, 将按其实际长度输出。但对浮点数, 若整数部分位数超过了说明的整数位宽度, 将按实际整数位输出;若小数部分位数超过了说明的小数位宽度, 则按说明的宽度以四舍五入输出。</p></li><li><p>若想在输出值前加一些0, 就应在场宽项前加个0。例如：%04d 表示在输出一个小于4位的数值时, 将在前面补0使其总宽度为4位。</p></li><li><p>如果用浮点数表示<a href="https://baike.baidu.com/item/%E5%AD%97%E7%AC%A6">字符</a>或<a href="https://baike.baidu.com/item/%E6%95%B4%E5%9E%8B%E9%87%8F">整型量</a>的输出格式, 小数点后的数字代表最大宽度,小数点前的数字代表最小宽度。例如：%6.9s 表示显示一个长度不小于6且不大于9的字符串。若大于9, 则第9个字符以后的内容将被删除。</p></li><li></li></ul><h3 id="Tip2：长型数"><a href="#Tip2：长型数" class="headerlink" title="Tip2：长型数"></a>Tip2：长型数</h3><ul><li>可以在”%”和字母之间加小写字母l, 表示输出的是长型数。例如：%ld 表示输出long整数，%lf 表示输出<a href="https://baike.baidu.com/item/double">double</a>浮点数</li></ul><h3 id="Tip3：左对齐"><a href="#Tip3：左对齐" class="headerlink" title="Tip3：左对齐"></a>Tip3：左对齐</h3><ul><li>在”%”和字母之间加入一个”-“ 号可说明输出为左对齐, 否则为右对齐。例如：%-7d 表示输出7位整数左对齐，%-10s 表示输出10个<a href="https://baike.baidu.com/item/%E5%AD%97%E7%AC%A6">字符</a>左对齐</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程语言</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+      <tag>语法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【HDU2817】A sequence of numbers</title>
+    <link href="/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20A%20sequence%20of%20numbers/"/>
+    <url>/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20A%20sequence%20of%20numbers/</url>
+    
+    <content type="html"><![CDATA[<p><a href="http://acm.hdu.edu.cn/showproblem.php?pid=2817">http://acm.hdu.edu.cn/showproblem.php?pid=2817</a></p><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>Xinlv wrote some sequences on the paper a long time ago, they might be arithmetic or geometric sequences. The numbers are not very clear now, and only the first three numbers of each sequence are recognizable. Xinlv wants to know some numbers in these sequences, and he needs your help.</p><h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a><strong>输入</strong></h2><p>The first line contains an integer N, indicting that there are N sequences. Each of the following N lines contain four integers. The first three indicating the first three numbers of the sequence, and the last one is K, indicating that we want to know the K-th numbers of the sequence.</p><p>You can assume 0 &lt; K &lt;= 10^9, and the other three numbers are in the range [0, 2^63). All the numbers of the sequences are integers. And the sequences are non-decreasing.  </p><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a><strong>输出</strong></h2><p>Output one line for each test case, that is, the K-th number module (%) 200907.</p><h2 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code class="hljs basic"><span class="hljs-number">2</span><span class="hljs-symbol">1 </span><span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">5</span><span class="hljs-symbol">1 </span><span class="hljs-number">2</span> <span class="hljs-number">4</span> <span class="hljs-number">5</span></code></pre><h2 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code class="hljs angelscript"><span class="hljs-number">5</span><span class="hljs-number">16</span></code></pre><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>给定一个数列，首先判断它是等差数列还是等比数列。</p><p>对于等差数列，直接采用公式计算结果（<strong>要注意每一部分都要对200907取余，防止结果超出。</strong>）</p><p>对于等比数列，采用二分求幂思想计算。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;math.h&gt;</span></span><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<span class="hljs-keyword">int</span> N;<span class="hljs-built_in">cin</span> &gt;&gt; N;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> ss = <span class="hljs-number">0</span>; ss &lt; N; ss++) &#123;<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> a, b, c, k;<span class="hljs-built_in">cin</span> &gt;&gt; a &gt;&gt; b &gt;&gt; c &gt;&gt; k;<span class="hljs-keyword">if</span> (b - a == c - b) &#123;<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> diff = (b - a)%<span class="hljs-number">200907</span>;<span class="hljs-built_in">cout</span> &lt;&lt; ((a%<span class="hljs-number">200907</span>)+(diff*(k<span class="hljs-number">-1</span>))%<span class="hljs-number">200907</span>)%<span class="hljs-number">200907</span> &lt;&lt; <span class="hljs-built_in">endl</span>;&#125;<span class="hljs-keyword">else</span> &#123;<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> yu = b / a;<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> ans = a;k = k - <span class="hljs-number">1</span>;<span class="hljs-keyword">while</span> (k &gt; <span class="hljs-number">0</span>) &#123;<span class="hljs-keyword">if</span> (k % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) &#123;ans *= yu;ans %= <span class="hljs-number">200907</span>;&#125;k /= <span class="hljs-number">2</span>;yu *= yu;yu %= <span class="hljs-number">200907</span>;&#125;<span class="hljs-built_in">cout</span> &lt;&lt; ans%<span class="hljs-number">200907</span> &lt;&lt; <span class="hljs-built_in">endl</span>;&#125;&#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>保研</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机试</tag>
+      
+      <tag>二分求幂</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【HDU1575】Tr A</title>
+    <link href="/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20Tr%20A/"/>
+    <url>/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20Tr%20A/</url>
+    
+    <content type="html"><![CDATA[<p><a href="http://acm.hdu.edu.cn/showproblem.php?pid=2817">http://acm.hdu.edu.cn/showproblem.php?pid=2817</a></p><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>A为一个方阵，则Tr A表示A的迹（就是主对角线上各项的和），现要求Tr(A^k)%9973。</p><h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a><strong>输入</strong></h2><p>数据的第一行是一个T，表示有T组数据。<br>每组数据的第一行有n(2 &lt;= n &lt;= 10)和k(2 &lt;= k &lt; 10^9)两个数据。接下来有n行，每行有n个数据，每个数据的范围是[0,9]，表示方阵A的内容。</p><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a><strong>输出</strong></h2><p>对应每组数据，输出Tr(A^k)%9973。</p><h2 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code class="hljs basic"><span class="hljs-number">2</span><span class="hljs-symbol">2 </span><span class="hljs-number">2</span><span class="hljs-symbol">1 </span><span class="hljs-number">0</span><span class="hljs-symbol">0 </span><span class="hljs-number">1</span><span class="hljs-symbol">3 </span><span class="hljs-number">99999999</span><span class="hljs-symbol">1 </span><span class="hljs-number">2</span> <span class="hljs-number">3</span><span class="hljs-symbol">4 </span><span class="hljs-number">5</span> <span class="hljs-number">6</span><span class="hljs-symbol">7 </span><span class="hljs-number">8</span> <span class="hljs-number">9</span></code></pre><h2 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code class="hljs angelscript"><span class="hljs-number">2</span><span class="hljs-number">2686</span></code></pre><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>实现矩阵乘法之后采用二分求幂计算即可。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;math.h&gt;</span></span><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<span class="hljs-keyword">int</span>** A;<span class="hljs-keyword">int</span>** Tmp;<span class="hljs-comment">// 矩阵乘法</span><span class="hljs-function"><span class="hljs-keyword">int</span>** <span class="hljs-title">Cheng</span><span class="hljs-params">(<span class="hljs-keyword">int</span>** A, <span class="hljs-keyword">int</span>** B, <span class="hljs-keyword">int</span> n)</span> </span>&#123;<span class="hljs-keyword">int</span>** tmp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>* [<span class="hljs-number">10</span>];<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;tmp[i] = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">10</span>];<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">10</span>; j++) &#123;tmp[i][j] = <span class="hljs-number">0</span>;&#125;&#125;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j++) &#123;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> l = <span class="hljs-number">0</span>; l &lt; n; l++) &#123;tmp[i][j] += (A[i][l] * B[l][j]) % <span class="hljs-number">9973</span>;tmp[i][j] %= <span class="hljs-number">9973</span>;&#125;&#125;&#125;<span class="hljs-keyword">return</span> tmp;&#125;<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<span class="hljs-keyword">int</span> T;<span class="hljs-built_in">cin</span> &gt;&gt; T;A = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>* [<span class="hljs-number">10</span>];Tmp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>* [<span class="hljs-number">10</span>];<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;A[i] = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">10</span>];Tmp[i] = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">10</span>];&#125;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> ss = <span class="hljs-number">0</span>; ss &lt; T; ss++) &#123;<span class="hljs-keyword">int</span> n, k;<span class="hljs-built_in">cin</span> &gt;&gt; n &gt;&gt; k;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j++) &#123;<span class="hljs-built_in">cin</span> &gt;&gt; A[i][j];A[i][j] %= <span class="hljs-number">9973</span>;&#125;&#125;<span class="hljs-comment">// 生成单位矩阵</span><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">10</span>; j++) &#123;<span class="hljs-keyword">if</span> (i == j)Tmp[i][j] = <span class="hljs-number">1</span>;<span class="hljs-keyword">else</span>Tmp[i][j] = <span class="hljs-number">0</span>;&#125;&#125;        <span class="hljs-comment">// 采用二分求幂思想计算矩阵的幂</span><span class="hljs-keyword">while</span> (k &gt; <span class="hljs-number">0</span>) &#123;<span class="hljs-keyword">if</span> (k % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) &#123;Tmp = Cheng(Tmp, A, n);&#125;k /= <span class="hljs-number">2</span>;A = Cheng(A, A, n);&#125;<span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;ans += Tmp[i][i];&#125;<span class="hljs-built_in">cout</span> &lt;&lt; ans % <span class="hljs-number">9973</span>&lt;&lt; <span class="hljs-built_in">endl</span>;&#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>保研</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机试</tag>
+      
+      <tag>二分求幂</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【HDU2035】人见人爱A^B</title>
+    <link href="/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20%E4%BA%BA%E8%A7%81%E4%BA%BA%E7%88%B1A%5EB/"/>
+    <url>/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20%E4%BA%BA%E8%A7%81%E4%BA%BA%E7%88%B1A%5EB/</url>
+    
+    <content type="html"><![CDATA[<p><a href="http://acm.hdu.edu.cn/showproblem.php?pid=2035">http://acm.hdu.edu.cn/showproblem.php?pid=2035</a></p><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>求A^B的最后三位数表示的整数。<br>说明：A^B的含义是“A的B次方”</p><h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a><strong>输入</strong></h2><p>输入数据包含多个测试实例，每个实例占一行，由两个正整数A和B组成（1&lt;=A,B&lt;=10000），如果A=0, B=0，则表示输入数据的结束，不做处理。</p><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a><strong>输出</strong></h2><p>对于每个测试实例，请输出A^B的最后三位表示的整数，每个输出占一行。</p><h2 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code class="hljs basic"><span class="hljs-symbol">2 </span><span class="hljs-number">3</span><span class="hljs-symbol">12 </span><span class="hljs-number">6</span><span class="hljs-symbol">6789 </span><span class="hljs-number">10000</span><span class="hljs-symbol">0 </span><span class="hljs-number">0</span></code></pre><h2 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code class="hljs angelscript"><span class="hljs-number">8</span><span class="hljs-number">984</span><span class="hljs-number">1</span></code></pre><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>水题，主要锻炼一下二分求幂思想的应用。</p><p>二分求幂即将幂次转化成二进制，每次循环将底数自乘，如果幂次对应的二进制位数为1，则在结果中加入当前的底数。</p><p>以2^15为例：</p><table><thead><tr><th>底数</th><th>幂次%2</th><th>ans操作</th><th>ans结果</th><th>幂次操作</th><th>幂次结果</th></tr></thead><tbody><tr><td>2</td><td>15%2==1</td><td>1*=2</td><td>2</td><td>15/=2</td><td>7</td></tr><tr><td>4</td><td>7%2==1</td><td>2*=4</td><td>8</td><td>7/=2</td><td>3</td></tr><tr><td>16</td><td>3%2==1</td><td>8*=16</td><td>128</td><td>3/=1</td><td>1</td></tr><tr><td>256</td><td>1%2==1</td><td>128*=256</td><td>32768</td><td>1/=2</td><td>0</td></tr></tbody></table><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;math.h&gt;</span></span><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<span class="hljs-function"><span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> A, B;<span class="hljs-keyword">while</span> (<span class="hljs-built_in">cin</span> &gt;&gt; A &gt;&gt; B) &#123;<span class="hljs-keyword">if</span> (A == B &amp;&amp; A == <span class="hljs-number">0</span>) <span class="hljs-keyword">break</span>;<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> ans = <span class="hljs-number">1</span>;<span class="hljs-keyword">while</span> (B &gt; <span class="hljs-number">0</span>) &#123;<span class="hljs-keyword">if</span> (B % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) &#123;ans *= A;ans %= <span class="hljs-number">1000</span>;&#125;B /= <span class="hljs-number">2</span>;A *= A;A %= <span class="hljs-number">1000</span>;&#125;<span class="hljs-built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="hljs-built_in">endl</span>;&#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>保研</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机试</tag>
+      
+      <tag>二分求幂</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【牛客网】整除问题</title>
+    <link href="/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20%E6%95%B4%E9%99%A4%E9%97%AE%E9%A2%98/"/>
+    <url>/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20%E6%95%B4%E9%99%A4%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://www.nowcoder.com/questionTerminal/8e29045de1c84d349b43fdb123ab586a">https://www.nowcoder.com/questionTerminal/8e29045de1c84d349b43fdb123ab586a</a></p><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>给定n，a求最大的k，使n！可以被a^k整除但不能被a^(k+1)整除。</p><h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>两个整数n(2&lt;=n&lt;=1000)，a(2&lt;=a&lt;=1000)</p><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>一个整数.</p><h2 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code class="hljs basic"><span class="hljs-symbol">6 </span><span class="hljs-number">10</span></code></pre><h2 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code class="hljs angelscript"><span class="hljs-number">1</span></code></pre><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>n！与 a^k 可能非常大，不可以直接求余。所以要从整除的特征入手，如果一个整数a可以整除整数b，分别对a和b分解素因数可得：<br>$$<br>a=p_1^{e_1}p_2^{e_2}…p_n^{e_n}<br>$$</p><p>$$<br>b=p_1’^{e_1’}p_2’^{e_2’}…p_n’^{e_n’}<br>$$</p><p>由b除以a可得：<br>$$<br>\frac{b}{a}=\frac{p_1’^{e_1’}p_2’^{e_2’}…p_n’^{e_n’}}{p_1’^{e_1’}p_2’^{e_2’}…p_n’^{e_n’}}<br>$$<br>如果a能整除b，则b/a为一个整数，如果a存在一个素因数px，则b也一定有该素因数，且b中该素因数的幂指数必不小于a中对应的幂指数。</p><p>现在我们求的是n! 与 a^k 整除的结果，a^k可以写成：<br>$$<br>a^k=(p_1^{e_1}p_2^{e_2}…p_n^{e_n})^k<br>$$</p><p>$$<br>a^k=p_1^{e_1k}p_2^{e_2k}…p_n^{e_nk}<br>$$</p><p>所以我们最终就是要求出最大的非负整数k，使a中任一素因数的幂指数的k倍仍小于或等于该素因数在n！中对应的幂指数。</p><p>对a分解质因数可以使用常规的方法，但是n！比较大，不可以直接分解，王道宝典上给出了一种比较巧妙的方法，步骤如下：</p><ol><li>对于每一个素因数p，设置一个计数器，该计数器记录n！中p的幂次</li><li>计算n/p，将其累加到技术器中。因为n！中每有一个p的倍数，p的幂次就会加1。</li><li>计算n/(p*p)，将其累加到计数器中。n！中每有一个p * p的倍数，p的幂次就会加2，但由于之前已经加过一次，所以这里加1。</li><li>依次计算n/(p * p * p)以及p的更高次幂，直至n/(p^k)等于0，表示没有更多的数可以提供p银子。</li><li>依次遍历所有可能成为n！的素因数的素数（即小于等于n的所有素数），并计算其幂指数，即可完成对n！的素因数分解。</li></ol><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;math.h&gt;</span></span><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;memory.h&gt;</span></span><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> counta[<span class="hljs-number">1001</span>];<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> countn[<span class="hljs-number">1001</span>];<span class="hljs-comment">// 判断是否为质数</span><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isZhi</span><span class="hljs-params">(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> num)</span> </span>&#123;<span class="hljs-keyword">if</span> (num == <span class="hljs-number">2</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<span class="hljs-keyword">if</span> (num == <span class="hljs-number">1</span> || num == <span class="hljs-number">0</span> || num &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> bound = <span class="hljs-built_in">sqrt</span>(num) + <span class="hljs-number">1</span>;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= bound; i++) &#123;<span class="hljs-keyword">if</span> (num % i == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;&#125;<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;&#125;<span class="hljs-comment">// 采用常规方法对A进行质因数分解</span><span class="hljs-function"><span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> <span class="hljs-title">FenA</span><span class="hljs-params">(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> a, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>* count)</span> </span>&#123;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= a ; i++) &#123;<span class="hljs-keyword">while</span> (a % i == <span class="hljs-number">0</span>) &#123;a /= i;count[i]++;&#125;&#125;<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;&#125;<span class="hljs-comment">// 特殊方法对n！进行素因数分解</span><span class="hljs-function"><span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> <span class="hljs-title">FenN</span><span class="hljs-params">(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> n, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>* count)</span> </span>&#123;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++) &#123;<span class="hljs-keyword">if</span> (isZhi(i)) &#123;<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> tmpi = i;<span class="hljs-keyword">while</span> (n / tmpi &gt; <span class="hljs-number">0</span>) &#123;count[i] += (n / tmpi);tmpi *= i;&#125;&#125;&#125;<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;&#125;<span class="hljs-comment">// 找到最大的k</span><span class="hljs-function"><span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> <span class="hljs-title">FindK</span><span class="hljs-params">(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>* counta, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>* countn)</span> </span>&#123;<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> ans = <span class="hljs-number">1000</span>;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1001</span>; i++) &#123;<span class="hljs-keyword">if</span> (isZhi(i) &amp;&amp; counta[i]&gt;<span class="hljs-number">0</span> &amp;&amp; countn[i]&gt;<span class="hljs-number">0</span>) &#123;<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> tmp = countn[i] / counta[i];<span class="hljs-keyword">if</span> (tmp &lt; ans) &#123;ans = tmp;&#125;&#125;&#125;<span class="hljs-keyword">return</span> ans;&#125;<span class="hljs-function"><span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> n, a;<span class="hljs-keyword">while</span> (<span class="hljs-built_in">cin</span> &gt;&gt; n &gt;&gt; a) &#123;<span class="hljs-built_in">memset</span>(counta, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(counta));<span class="hljs-built_in">memset</span>(countn, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(countn));FenA(a, counta);FenN(n, countn);<span class="hljs-built_in">cout</span> &lt;&lt; FindK(counta, countn) &lt;&lt; <span class="hljs-built_in">endl</span>;&#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>保研</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机试</tag>
+      
+      <tag>因数分解</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【牛客网】质因数分解</title>
+    <link href="/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20%E8%B4%A8%E5%9B%A0%E6%95%B0%E5%88%86%E8%A7%A3/"/>
+    <url>/2019/06/02/%E6%9C%BA%E8%AF%95/0602%20%E8%B4%A8%E5%9B%A0%E6%95%B0%E5%88%86%E8%A7%A3/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://www.nowcoder.com/questionTerminal/20426b85f7fc4ba8b0844cc04807fbd9">https://www.nowcoder.com/questionTerminal/20426b85f7fc4ba8b0844cc04807fbd9</a></p><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>求正整数N(N&gt;1)的质因数的个数。 相同的质因数需要重复计算。如120=2<em>2</em>2<em>3</em>5，共有5个质因数。</p><h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a><strong>输入</strong></h2><pre><code class="hljs angelscript">可能有多组测试数据，每组测试数据的输入是一个正整数N，(<span class="hljs-number">1</span>&lt;N&lt;<span class="hljs-number">10</span>^<span class="hljs-number">9</span>)。</code></pre><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a><strong>输出</strong></h2><pre><code class="hljs excel">对于每组数据，输出<span class="hljs-built_in">N</span>的质因数的个数。</code></pre><h2 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code class="hljs angelscript"><span class="hljs-number">120</span></code></pre><h2 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code class="hljs angelscript"><span class="hljs-number">5</span></code></pre><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>对每个输入数据，从2开始依次判断其是否可以整除。若可以整除，则除数即为其质因数，答案计数器加1。<strong>可以不用判断除数是否为质数</strong>。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;math.h&gt;</span></span><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<span class="hljs-keyword">int</span> num;<span class="hljs-keyword">while</span> (<span class="hljs-built_in">cin</span> &gt;&gt; num) &#123;<span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>;<span class="hljs-keyword">int</span> bound = <span class="hljs-built_in">sqrt</span>(num) + <span class="hljs-number">1</span>;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= num &amp;&amp; i&lt;= bound; i++) &#123;            <span class="hljs-keyword">while</span> (num % i == <span class="hljs-number">0</span>) &#123;                num /= i;                ans++;            &#125;&#125;<span class="hljs-keyword">if</span> (num &gt; <span class="hljs-number">1</span>) &#123;ans++;&#125;<span class="hljs-built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="hljs-built_in">endl</span>;&#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>保研</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机试</tag>
+      
+      <tag>因数分解</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【清华机试原题】约数的个数</title>
+    <link href="/2019/05/27/%E6%9C%BA%E8%AF%95/0527%20%E7%BA%A6%E6%95%B0%E7%9A%84%E4%B8%AA%E6%95%B0/"/>
+    <url>/2019/05/27/%E6%9C%BA%E8%AF%95/0527%20%E7%BA%A6%E6%95%B0%E7%9A%84%E4%B8%AA%E6%95%B0/</url>
+    
+    <content type="html"><![CDATA[<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>输入n个整数,依次输出每个数的约数的个数</p><h2 id="输入描述"><a href="#输入描述" class="headerlink" title="输入描述"></a>输入描述</h2><pre><code class="hljs angelscript">输入的第一行为N，即数组的个数(N&lt;=<span class="hljs-number">1000</span>)接下来的<span class="hljs-number">1</span>行包括N个整数，其中每个数的范围为(<span class="hljs-number">1</span>&lt;=Num&lt;=<span class="hljs-number">1000000000</span>)当N=<span class="hljs-number">0</span>时输入结束。</code></pre><h2 id="输出描述"><a href="#输出描述" class="headerlink" title="输出描述"></a>输出描述</h2><pre><code class="hljs excel">可能有多组输入数据，对于每组输入数据，输出<span class="hljs-built_in">N</span>行，其中每一行对应上面的一个数的约数的个数。</code></pre><p>示例1</p><h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><pre><code class="hljs basic"><span class="hljs-number">5</span><span class="hljs-symbol">1 </span><span class="hljs-number">3</span> <span class="hljs-number">4</span> <span class="hljs-number">6</span> <span class="hljs-number">12</span></code></pre><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><pre><code class="hljs angelscript"><span class="hljs-number">1</span><span class="hljs-number">2</span><span class="hljs-number">3</span><span class="hljs-number">4</span><span class="hljs-number">6</span></code></pre><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>设置循环判断条件为 i*i&lt;keep，减少循环次数</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;    <span class="hljs-keyword">int</span> n;    <span class="hljs-keyword">int</span> keep;    <span class="hljs-built_in">cin</span>&gt;&gt;n;    <span class="hljs-keyword">while</span>((n--)&gt;<span class="hljs-number">0</span>)&#123;        <span class="hljs-built_in">cin</span>&gt;&gt;keep;        <span class="hljs-keyword">int</span> count=<span class="hljs-number">0</span>,i=<span class="hljs-number">1</span>;        <span class="hljs-keyword">for</span>(;i*i&lt;keep;i++)&#123;            <span class="hljs-keyword">if</span>(keep%i==<span class="hljs-number">0</span>)&#123;                count+=<span class="hljs-number">2</span>;            &#125;        &#125;        <span class="hljs-keyword">if</span>(i*i==keep)&#123;            count++;        &#125;        <span class="hljs-built_in">cout</span>&lt;&lt;count&lt;&lt;<span class="hljs-built_in">endl</span>;    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>保研</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机试</tag>
+      
+      <tag>因数分解</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【ZOJ1797】Least Common Multiple(LCM)</title>
+    <link href="/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20Least%20Common%20Multiple(LCM)/"/>
+    <url>/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20Least%20Common%20Multiple(LCM)/</url>
+    
+    <content type="html"><![CDATA[<p><a href="http://acm.zju.edu.cn/onlinejudge/showProblem.do?problemId=797">http://acm.zju.edu.cn/onlinejudge/showProblem.do?problemId=797</a></p><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>The least common multiple (LCM) of a set of positive integers is the smallest positive integer which is divisible by all the numbers in the set. For example, the LCM of 5, 7 and 15 is 105.</p><h2 id="输入描述"><a href="#输入描述" class="headerlink" title="输入描述"></a><strong>输入描述</strong></h2><p>Input will consist of multiple problem instances. The first line of the input will contain a single integer indicating the number of problem instances. Each instance will consist of a single line of the form m n1 n2 n3 … nm where m is the number of integers in the set and n1 … nm are the integers. All integers will be positive and lie within the range of a 32-bit integer.</p><h2 id="输出描述"><a href="#输出描述" class="headerlink" title="输出描述"></a>输出描述</h2><p>For each problem instance, output a single line containing the corresponding LCM. All results will lie in the range of a 32-bit integer.</p><h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a><strong>输入</strong></h2><pre><code class="hljs basic"><span class="hljs-number">2</span><span class="hljs-symbol">3 </span><span class="hljs-number">5</span> <span class="hljs-number">7</span> <span class="hljs-number">15</span><span class="hljs-symbol">6 </span><span class="hljs-number">4</span> <span class="hljs-number">10296</span> <span class="hljs-number">936</span> <span class="hljs-number">1287</span> <span class="hljs-number">792</span> <span class="hljs-number">1</span></code></pre><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a><strong>输出</strong></h2><pre><code class="hljs angelscript"><span class="hljs-number">105</span><span class="hljs-number">10296</span></code></pre><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>两个数的最小公倍数即为A和B的乘积除以其最大公约数。</p><p>求多个数的最小公倍数可以先对其中的两个求最小公倍数L，然后将求出的最小公倍数L加入剩余数中，继续两两求最小公倍数，直至最后两个数求出一个最小公倍数，即为多个数共同的最小公倍数。</p><p><strong>要注意计算最小公倍数时为了避免溢出，需要先除再乘</strong></p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">gcd</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;<span class="hljs-keyword">do</span> &#123;<span class="hljs-keyword">int</span> tmp = a;a = b;b = tmp % a;&#125; <span class="hljs-keyword">while</span> (b != <span class="hljs-number">0</span>);<span class="hljs-keyword">return</span> a;&#125;<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">lcm</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;<span class="hljs-keyword">return</span> a / gcd(a, b) * b;&#125;<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<span class="hljs-keyword">int</span> n,m;<span class="hljs-built_in">cin</span> &gt;&gt; n;<span class="hljs-keyword">while</span> (n--) &#123;<span class="hljs-built_in">cin</span> &gt;&gt; m;<span class="hljs-keyword">int</span> num1 = <span class="hljs-number">0</span>, num2 = <span class="hljs-number">0</span>;<span class="hljs-built_in">cin</span> &gt;&gt; num1;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; m; i++) &#123;<span class="hljs-built_in">cin</span> &gt;&gt; num2;num1 = lcm(num1, num2);&#125;<span class="hljs-built_in">cout</span> &lt;&lt; num1 &lt;&lt; <span class="hljs-built_in">endl</span>;&#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>保研</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机试</tag>
+      
+      <tag>最小公倍数</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【HDOJ1013】Digital Roots</title>
+    <link href="/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20Digital%20Roots/"/>
+    <url>/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20Digital%20Roots/</url>
+    
+    <content type="html"><![CDATA[<p><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1013">http://acm.hdu.edu.cn/showproblem.php?pid=1013</a></p><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>The digital root of a positive integer is found by summing the digits of the integer. If the resulting value is a single digit then that digit is the digital root. If the resulting value contains two or more digits, those digits are summed and the process is repeated. This is continued as long as necessary to obtain a single digit.</p><p>For example, consider the positive integer 24. Adding the 2 and the 4 yields a value of 6. Since 6 is a single digit, 6 is the digital root of 24. Now consider the positive integer 39. Adding the 3 and the 9 yields 12. Since 12 is not a single digit, the process must be repeated. Adding the 1 and the 2 yields 3, a single digit and also the digital root of 39.</p><h2 id="输入描述"><a href="#输入描述" class="headerlink" title="输入描述"></a>输入描述</h2><p>The input file will contain a list of positive integers, one per line. The end of the input will be indicated by an integer value of zero.</p><h2 id="输出描述"><a href="#输出描述" class="headerlink" title="输出描述"></a>输出描述</h2><p>For each integer in the input, output its digital root on a separate line of the output.</p><h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><pre><code class="hljs angelscript"><span class="hljs-number">24</span><span class="hljs-number">39</span><span class="hljs-number">0</span></code></pre><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><pre><code class="hljs angelscript"><span class="hljs-number">6</span><span class="hljs-number">3</span></code></pre><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>这题比较简单，但要注意输入长度不限制</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;string&gt;</span></span><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<span class="hljs-built_in">string</span> s;<span class="hljs-keyword">while</span> (<span class="hljs-built_in">cin</span> &gt;&gt; s) &#123;<span class="hljs-keyword">if</span> (s[<span class="hljs-number">0</span>]==<span class="hljs-string">&#x27;0&#x27;</span>) <span class="hljs-keyword">break</span>;<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> len = s.length();<span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>;<span class="hljs-keyword">while</span> (len &gt; <span class="hljs-number">1</span>) &#123;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;ans += (s[i] - <span class="hljs-string">&#x27;0&#x27;</span>);&#125;s = to_string(ans);len = s.length();ans = <span class="hljs-number">0</span>;&#125;<span class="hljs-built_in">cout</span> &lt;&lt; s &lt;&lt; <span class="hljs-built_in">endl</span>;&#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>保研</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机试</tag>
+      
+      <tag>数位拆解</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【牛客网】又一版A+B</title>
+    <link href="/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20%E5%8F%88%E4%B8%80%E7%89%88A+B/"/>
+    <url>/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20%E5%8F%88%E4%B8%80%E7%89%88A+B/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://www.nowcoder.com/questionTerminal/9255c05d45b8406c9b588d7c57aa920b">https://www.nowcoder.com/questionTerminal/9255c05d45b8406c9b588d7c57aa920b</a></p><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>输入两个不超过整型定义的非负10进制整数A和B(&lt;=231-1)，输出A+B的m (1 &lt; m &lt;10)进制数。</p><h2 id="输入描述"><a href="#输入描述" class="headerlink" title="输入描述"></a><strong>输入描述</strong></h2><p>输入格式：测试输入包含若干测试用例。每个测试用例占一行，给出m和A，B的值。<br>当m为0时输入结束。</p><h2 id="输出描述"><a href="#输出描述" class="headerlink" title="输出描述"></a><strong>输出描述</strong></h2><p>输出格式：每个测试用例的输出占一行，输出A+B的m进制数。</p><h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><pre><code class="hljs basic"><span class="hljs-symbol">8 </span><span class="hljs-number">1300</span> <span class="hljs-number">48</span><span class="hljs-symbol">2 </span><span class="hljs-number">1</span> <span class="hljs-number">7</span><span class="hljs-number">0</span></code></pre><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><pre><code class="hljs angelscript"><span class="hljs-number">2504</span><span class="hljs-number">1000</span></code></pre><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>考虑到最终结果可能比较大，所以使用vector（或者用普通数组）来存储每一位余数。</p><p>求得A+B的和sum之后重复以下步骤直至sum等于0</p><ol><li><p>sum对m取余</p></li><li><p>将余数push</p></li><li><p>sum除以m</p></li></ol><p>最后从后向前依次打印即可</p><p><strong>要注意处理A和B都为0的特殊情况，还要注意使用unsigned int 或 long long 存储A、B和A+B，防止溢出</strong></p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;vector&gt;</span></span><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; v;<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> A, B;<span class="hljs-keyword">int</span> m;<span class="hljs-keyword">while</span> (<span class="hljs-built_in">cin</span> &gt;&gt; m) &#123;<span class="hljs-keyword">if</span> (m == <span class="hljs-number">0</span>) <span class="hljs-keyword">break</span>;<span class="hljs-built_in">cin</span> &gt;&gt; A &gt;&gt; B;<span class="hljs-keyword">while</span> (!v.empty()) v.pop_back();<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> sum = A + B;<span class="hljs-keyword">while</span> (sum &gt; <span class="hljs-number">0</span>) &#123;v.push_back(sum % m);sum /= m;&#125;<span class="hljs-keyword">while</span> (!v.empty() &amp;&amp; v.back()==<span class="hljs-number">0</span>) &#123;v.pop_back();&#125;        <span class="hljs-keyword">if</span>(v.empty())&#123;            <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-number">0</span>&lt;&lt;<span class="hljs-built_in">endl</span>;        &#125;         <span class="hljs-keyword">else</span>&#123;            <span class="hljs-keyword">while</span>(!v.empty())&#123;                <span class="hljs-built_in">cout</span>&lt;&lt;v.back();                v.pop_back();            &#125;            <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;        &#125;&#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>保研</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机试</tag>
+      
+      <tag>进制转换</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【Bailian2710】数制转换</title>
+    <link href="/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20%E6%95%B0%E5%88%B6%E8%BD%AC%E6%8D%A2/"/>
+    <url>/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20%E6%95%B0%E5%88%B6%E8%BD%AC%E6%8D%A2/</url>
+    
+    <content type="html"><![CDATA[<p>Bailian2710 <a href="http://noi.openjudge.cn/ch0113/01/">http://noi.openjudge.cn/ch0113/01/</a></p><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>求任意两个不同进制非负整数的转换（2进制～16进制），所给整数在long所能表达的范围之内。<br>不同进制的表示符号为（0，1，…，9，a，b，…，f）或者（0，1，…，9，A，B，…，F）。</p><h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>输入只有一行，包含三个整数a，n，b。a表示其后的n 是a进制整数，b表示欲将a进制整数n转换成b进制整数。<br>a，b是十进制整数，2 =&lt; a，b &lt;= 16。</p><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>输出包含一行，该行有一个整数为转换后的b进制数。输出时字母符号全部用大写表示，即（0，1，…，9，A，B，…，F）。</p><h2 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code class="hljs basic"><span class="hljs-symbol">15 </span>Aab3 <span class="hljs-number">7</span></code></pre><h2 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code class="hljs angelscript"><span class="hljs-number">210306</span></code></pre><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>比较简单，四个小函数，两个用来转换每一位，两个用来转换整体</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;string&gt;</span></span><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;vector&gt;</span></span><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getDecNum</span><span class="hljs-params">(<span class="hljs-keyword">char</span> c)</span> </span>&#123;<span class="hljs-keyword">if</span> (<span class="hljs-built_in">isdigit</span>(c)) <span class="hljs-keyword">return</span> c - <span class="hljs-string">&#x27;0&#x27;</span>;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(c&gt;=<span class="hljs-string">&#x27;A&#x27;</span> &amp;&amp; c&lt;=<span class="hljs-string">&#x27;Z&#x27;</span>)&#123;<span class="hljs-keyword">return</span> (c - <span class="hljs-string">&#x27;A&#x27;</span>) + <span class="hljs-number">10</span>;&#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (c &gt;= <span class="hljs-string">&#x27;a&#x27;</span> &amp;&amp; c &lt;= <span class="hljs-string">&#x27;z&#x27;</span>) &#123;<span class="hljs-keyword">return</span> (c - <span class="hljs-string">&#x27;a&#x27;</span>) + <span class="hljs-number">10</span>;&#125;<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;&#125;<span class="hljs-function"><span class="hljs-keyword">char</span> <span class="hljs-title">getOtherNum</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> num)</span> </span>&#123;<span class="hljs-keyword">if</span> (num &lt; <span class="hljs-number">10</span>) <span class="hljs-keyword">return</span> (<span class="hljs-keyword">char</span>)(num + <span class="hljs-string">&#x27;0&#x27;</span>);<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> (<span class="hljs-keyword">char</span>)((num - <span class="hljs-number">10</span>) + <span class="hljs-string">&#x27;A&#x27;</span>);&#125;<span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">otherToDec</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-built_in">string</span> num)</span> </span>&#123;<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> len = num.length();<span class="hljs-keyword">long</span> num_dec = <span class="hljs-number">0</span>;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;num_dec *= a;num_dec += getDecNum(num[i]);&#125;<span class="hljs-keyword">return</span> num_dec;&#125;<span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">decToOther</span><span class="hljs-params">(<span class="hljs-keyword">int</span> b, <span class="hljs-keyword">long</span> num)</span> </span>&#123;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">char</span>&gt; v;<span class="hljs-keyword">do</span> &#123;v.push_back(getOtherNum(b, num % b));num /= b;&#125; <span class="hljs-keyword">while</span> (num &gt; <span class="hljs-number">0</span>);<span class="hljs-built_in">string</span> result = <span class="hljs-string">&quot;&quot;</span>;<span class="hljs-keyword">while</span> (!v.empty()) &#123;result += v.back();v.pop_back();&#125;<span class="hljs-keyword">return</span> result;&#125;<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<span class="hljs-keyword">int</span> a, b;<span class="hljs-built_in">string</span> num;<span class="hljs-keyword">while</span> (<span class="hljs-built_in">cin</span> &gt;&gt; a &gt;&gt; num &gt;&gt; b) &#123;<span class="hljs-keyword">long</span> num_dec = otherToDec(a, num);<span class="hljs-built_in">cout</span> &lt;&lt; decToOther(b, num_dec) &lt;&lt; <span class="hljs-built_in">endl</span>;&#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>保研</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机试</tag>
+      
+      <tag>进制转换</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【牛客网】最大公约数</title>
+    <link href="/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0(GCD)/"/>
+    <url>/2019/05/22/%E6%9C%BA%E8%AF%95/0522%20%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0(GCD)/</url>
+    
+    <content type="html"><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>输入两个正整数，求其最大公约数。</p><h2 id="输入描述"><a href="#输入描述" class="headerlink" title="输入描述"></a><strong>输入描述</strong></h2><p>测试数据有多组，每组输入两个正整数。</p><h2 id="输出描述"><a href="#输出描述" class="headerlink" title="输出描述"></a><strong>输出描述</strong></h2><p>对于每组输入,请输出其最大公约数。</p><h2 id="示例输入"><a href="#示例输入" class="headerlink" title="示例输入"></a>示例输入</h2><pre><code class="hljs basic"><span class="hljs-symbol">49 </span><span class="hljs-number">14</span></code></pre><h2 id="示例输出"><a href="#示例输出" class="headerlink" title="示例输出"></a>示例输出</h2><pre><code class="hljs angelscript"><span class="hljs-number">7</span></code></pre><h2 id="问题思路"><a href="#问题思路" class="headerlink" title="问题思路"></a>问题思路</h2><p>设两个数为A、B，其最大公约数为g，则：（k与l均为整数）<br>$$<br>A = g * k<br>$$</p><p>$$<br>B = g * l<br>$$</p><p>假设A &gt;= B，则：（m与r均为整数）<br>$$<br>A = B*m + r<br>$$<br>即<br>$$<br>r = g * ( k - l * m )<br>$$<br>因为<code>k-l*m</code>为整数，所以r取余g也为0，问题就转变为求 r和B 的最大公约数，如此迭代下去。</p><p>当最终r = 0时即求得最大公约数</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;    <span class="hljs-keyword">int</span> A,B;    <span class="hljs-keyword">while</span>(<span class="hljs-built_in">cin</span>&gt;&gt;A&gt;&gt;B)&#123;        <span class="hljs-keyword">if</span>(A==<span class="hljs-number">0</span> &amp;&amp; B!=<span class="hljs-number">0</span>) <span class="hljs-built_in">cout</span>&lt;&lt;B&lt;&lt;<span class="hljs-built_in">endl</span>;        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(A!=<span class="hljs-number">0</span> &amp;&amp; B==<span class="hljs-number">0</span>) <span class="hljs-built_in">cout</span>&lt;&lt;A&lt;&lt;<span class="hljs-built_in">endl</span>;        <span class="hljs-keyword">else</span>&#123;            <span class="hljs-keyword">int</span> tmp;            <span class="hljs-keyword">do</span>&#123;                <span class="hljs-keyword">int</span> tmp = A;                A = B;                B = tmp % B;                            &#125;<span class="hljs-keyword">while</span>(B!=<span class="hljs-number">0</span>);            <span class="hljs-built_in">cout</span>&lt;&lt;A&lt;&lt;<span class="hljs-built_in">endl</span>;        &#125;    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>保研</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机试</tag>
+      
+      <tag>最大公约数</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>求素数的方法</title>
+    <link href="/2019/05/22/%E6%9C%BA%E8%AF%95/%E6%B1%82%E7%B4%A0%E6%95%B0%E8%A6%81%E7%82%B9/"/>
+    <url>/2019/05/22/%E6%9C%BA%E8%AF%95/%E6%B1%82%E7%B4%A0%E6%95%B0%E8%A6%81%E7%82%B9/</url>
+    
+    <content type="html"><![CDATA[<p><strong>Tips：</strong></p><ul><li><p>直接判断（<strong>上界可以缩减为平方根，0、1和负数不是素数</strong>）</p><pre><code class="hljs C++"><span class="hljs-keyword">if</span>(n==<span class="hljs-number">0</span>||n==<span class="hljs-number">1</span>||n&lt;<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; <span class="hljs-keyword">int</span> bound = (<span class="hljs-keyword">int</span>)<span class="hljs-built_in">sqrt</span>(n)+<span class="hljs-number">1</span>;<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">2</span>; i&lt;=bound &amp;&amp; i!=n; i++)&#123;    <span class="hljs-keyword">if</span>(n%i==<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;&#125;<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;</code></pre></li><li><p>当数量级比较大时，可以设置bool数组，求出一个素数<code>i</code>时，将<code>i</code>的所有倍数均设为非素数（可以从<code>i*i</code>开始）</p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>保研</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机试</tag>
+      
+      <tag>素数</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【从零开始的Hexo博客搭建】功能完善</title>
+    <link href="/2019/02/12/%E5%8D%9A%E5%AE%A2/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA4%E5%8A%9F%E8%83%BD%E5%AE%8C%E5%96%84/"/>
+    <url>/2019/02/12/%E5%8D%9A%E5%AE%A2/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA4%E5%8A%9F%E8%83%BD%E5%AE%8C%E5%96%84/</url>
+    
+    <content type="html"><![CDATA[<p>完成博客的基本构建和美化之后，接下来需要在功能方面做一些完善。</p><h2 id="添加标签、分类页面"><a href="#添加标签、分类页面" class="headerlink" title="添加标签、分类页面"></a>添加标签、分类页面</h2><p>首先需要新建页面，在根目录下分别执行</p><pre><code class="hljs bash">$ hexo new page tags$ hexo new page categories</code></pre><p>进入根目录下的 <code>source</code> 文件夹可以看到生成了两个新文件夹 <code>categories</code> 和 <code>tags</code> 分别进行编辑 <code>index.md</code> 文件，修改为对应类型</p><pre><code class="hljs yaml"><span class="hljs-string">source/tags/index.md</span><span class="hljs-attr">title:</span> <span class="hljs-string">标签</span><span class="hljs-attr">date:</span> <span class="hljs-number">2019-02-12 10:17:59</span><span class="hljs-attr">type:</span> <span class="hljs-string">&quot;tags&quot;</span><span class="hljs-string">source/categories/index.md</span><span class="hljs-attr">title:</span> <span class="hljs-string">分类</span><span class="hljs-attr">date:</span> <span class="hljs-number">2019-02-12 10:18:38</span><span class="hljs-attr">type:</span> <span class="hljs-string">&quot;categories&quot;</span></code></pre><p>修改完毕后打开<code>主题配置文件</code>，修改<code>menu</code>部分</p><pre><code class="hljs yaml"><span class="hljs-attr">menu:</span>  <span class="hljs-attr">home:</span> <span class="hljs-string">/</span> <span class="hljs-string">||</span> <span class="hljs-string">home</span>  <span class="hljs-attr">archives:</span> <span class="hljs-string">/archives/</span> <span class="hljs-string">||</span> <span class="hljs-string">archive</span>  <span class="hljs-attr">categories:</span> <span class="hljs-string">/categories/</span> <span class="hljs-string">||</span> <span class="hljs-string">th</span>  <span class="hljs-attr">tags:</span> <span class="hljs-string">/tags/</span> <span class="hljs-string">||</span> <span class="hljs-string">tags</span>  <span class="hljs-comment">#about: /about/ || user </span>  <span class="hljs-comment">#schedule: /schedule/ || calendar</span>  <span class="hljs-comment">#sitemap: /sitemap.xml || sitemap</span>  <span class="hljs-comment">#commonweal: /404/ || heartbeat</span><span class="hljs-comment"># Enable/Disable menu icons.</span><span class="hljs-attr">menu_icons:</span>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">false</span></code></pre><p>去掉前方注释即可打开对应页面，修改关键字顺序即可改变对应页面在<code>menu</code>中的顺序</p><p>下方的<code>menu_icons</code>代表是否开启<code>menu</code>中标签左侧的图标</p><h2 id="添加侧边栏社交连接"><a href="#添加侧边栏社交连接" class="headerlink" title="添加侧边栏社交连接"></a>添加侧边栏社交连接</h2><p>修改<code>主题配置文件</code>中的<code>social</code>部分和<code>social_icons</code>部分</p><pre><code class="hljs yaml"><span class="hljs-attr">social:</span>  <span class="hljs-attr">GitHub:</span> <span class="hljs-string">https://github.com/medl2008</span> <span class="hljs-string">||</span> <span class="hljs-string">github</span>  <span class="hljs-attr">CSDN:</span> <span class="hljs-string">https://blog.csdn.net/StarEight</span><span class="hljs-attr">social_icons:</span>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-attr">icons_only:</span> <span class="hljs-literal">false</span>  <span class="hljs-attr">transition:</span> <span class="hljs-literal">false</span></code></pre><p>Next 主题默认采用 <a href="https://fontawesome.com/icons?d=gallery&m=free">Font Awesome</a> 图标，其中<code>social</code>部分网址后的字段代表图标对应的名称</p><h2 id="添加站内搜索"><a href="#添加站内搜索" class="headerlink" title="添加站内搜索"></a>添加站内搜索</h2><p>详见<a href="http://theme-next.iissnan.com/third-party-services.html#search-system">官方教程</a></p><ol><li><p>首先进入 <a href="https://www.algolia.com/">Algolia</a> 官网，注册账号后进入 <code>Dashboard</code> ，然后通过左侧的 <code>Indices</code> 创建一个新的 <code>index</code> 。</p></li><li><p>安装<code>Algolia</code> 拓展，在博客根目录右键打开GitBash并执行</p><pre><code class="hljs bash">$ npm install --save hexo-algolia</code></pre></li><li><p>在 Algolia 服务站点上找到需要使用的一些配置的值，包括 <code>ApplicationID</code>、<code>Search-Only API Key</code>、 <code>Admin API Key</code>。注意，<code>Admin API Key</code> 需要保密保存。点击<code>ALL API KEYS</code> 找到新建INDEX对应的key， 编辑权限，在弹出框中找到<code>ACL</code>选择勾选<code>addObject</code>, <code>deleteObject</code>, <code>listIndexes</code>, <code>deleteIndex</code>权限，点击<code>update</code>更新。</p><p>执行完毕后打开根目录下的<code>站点配置文件</code> ，新增配置如下（注意替换<code>applicationID</code>和<code>indexName</code>对应内容）</p><pre><code class="hljs yaml"><span class="hljs-attr">algolia:</span>  <span class="hljs-attr">applicationID:</span> <span class="hljs-string">&#x27;applicationID&#x27;</span>  <span class="hljs-attr">apiKey:</span> <span class="hljs-string">&#x27;API Key&#x27;</span>  <span class="hljs-attr">indexName:</span> <span class="hljs-string">&#x27;indexName&#x27;</span>  <span class="hljs-attr">chunkSize:</span> <span class="hljs-number">5000</span></code></pre><p>我做到这里时遇到了一个问题，按官方文档教程做完后发现点击搜索没有反应，参考网上教程后加上了 apiKey 字段，最终解决问题。</p></li><li><p>当配置完成，在站点根目录下执行</p><pre><code class="hljs bash">$ <span class="hljs-built_in">export</span>(windows为 <span class="hljs-built_in">set</span>) HEXO_ALGOLIA_INDEXING_KEY=Search-Only API key$ hexo algolia</code></pre><p>这里要注意，如果使用Git Bash的话第一条指令仍是export，同时还要注意将第一条指令的<code>Search-Only API key</code> 替换成对应的值</p><p>第二条指令作用是更新 <code>Algolia</code> 标签，当新建或修改文章时均需要执行 <code>hexo algolia</code></p></li><li><p>更改<code>主题配置文件</code> ，修改Algolia Search配置部分，将 enable 改为 true</p><pre><code class="hljs yaml"><span class="hljs-comment"># Algolia Search</span><span class="hljs-attr">algolia_search:</span>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-attr">hits:</span>    <span class="hljs-attr">per_page:</span> <span class="hljs-number">10</span>  <span class="hljs-attr">labels:</span>    <span class="hljs-attr">input_placeholder:</span> <span class="hljs-string">Search</span> <span class="hljs-string">for</span> <span class="hljs-string">Posts</span>    <span class="hljs-attr">hits_empty:</span> <span class="hljs-string">&quot;We didn&#x27;t find any results for the search: $&#123;query&#125;&quot;</span>    <span class="hljs-attr">hits_stats:</span> <span class="hljs-string">&quot;$&#123;hits&#125; results found in $&#123;time&#125; ms&quot;</span></code></pre><p>label 部分可根据需要更改</p></li></ol><h2 id="添加文章版权信息"><a href="#添加文章版权信息" class="headerlink" title="添加文章版权信息"></a>添加文章版权信息</h2><p>编辑<code>主题配置文件</code>，修改 <code>post_copyright</code> 部分</p><pre><code class="hljs yaml"><span class="hljs-comment"># Declare license on posts</span><span class="hljs-attr">post_copyright:</span>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-attr">license:</span> <span class="hljs-string">CC</span> <span class="hljs-string">BY-NC-SA</span> <span class="hljs-number">3.0</span>  <span class="hljs-attr">license_url:</span> <span class="hljs-string">https://creativecommons.org/licenses/by-nc-sa/3.0/</span></code></pre><h2 id="添加字数统计"><a href="#添加字数统计" class="headerlink" title="添加字数统计"></a>添加字数统计</h2><p>安装统计插件，在博客根目录执行</p><pre><code class="hljs bash">$ npm i --save hexo-wordcount</code></pre><p>编辑<code>主题配置文件</code> ，修改 <code>post_wordcount</code> 部分，将wordcount属性设为</p><pre><code class="hljs yaml"><span class="hljs-attr">post_wordcount:</span>  <span class="hljs-attr">item_text:</span> <span class="hljs-literal">true</span>  <span class="hljs-attr">wordcount:</span> <span class="hljs-literal">true</span>       <span class="hljs-comment"># 单篇字数统计</span>  <span class="hljs-attr">min2read:</span> <span class="hljs-literal">true</span>        <span class="hljs-comment"># 单篇阅读时常估计</span>  <span class="hljs-attr">totalcount:</span> <span class="hljs-literal">false</span>     <span class="hljs-comment"># 网站总字数统计</span>  <span class="hljs-attr">separated_meta:</span> <span class="hljs-literal">true</span></code></pre><p>增加显示文字，用文本编辑器打开<code>themes/next/layout/_macro/post.swig</code> ，定位到</p><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;&#123;&#123; __(&#x27;post.wordcount&#x27;) &#125;&#125;&quot;</span>&gt;</span>    &#123;&#123; wordcount(post.content) &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre><p>修改为</p><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;&#123;&#123; __(&#x27;post.wordcount&#x27;) &#125;&#125;&quot;</span>&gt;</span>&#123;&#123; wordcount(post.content) &#125;&#125; 字<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre><p>定位到</p><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;&#123;&#123; __(&#x27;post.min2read&#x27;) &#125;&#125;&quot;</span>&gt;</span>&#123;&#123; min2read(post.content) &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre><p>修改为</p><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;&#123;&#123; __(&#x27;post.min2read&#x27;) &#125;&#125;&quot;</span>&gt;</span>    &#123;&#123; min2read(post.content) &#125;&#125; min<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre><h2 id="添加访客量文章阅读量统计"><a href="#添加访客量文章阅读量统计" class="headerlink" title="添加访客量文章阅读量统计"></a>添加访客量文章阅读量统计</h2><p>使用 Next 主题集成的不蒜子统计，编辑<code>主题配置文件</code> ，修改<code>busuanzi_count</code>部分</p><pre><code class="hljs yaml"><span class="hljs-attr">busuanzi_count:</span>  <span class="hljs-comment"># count values only if the other configs are false</span>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment"># 站点访客数</span>  <span class="hljs-attr">site_uv:</span> <span class="hljs-literal">true</span>  <span class="hljs-attr">site_uv_header:</span> <span class="hljs-string">&lt;i</span> <span class="hljs-string">class=&quot;fa</span> <span class="hljs-string">fa-user&quot;&gt;&amp;nbsp;&amp;nbsp;本站访客数&lt;/i&gt;</span>  <span class="hljs-attr">site_uv_footer:</span> <span class="hljs-string">人</span>  <span class="hljs-comment"># 站点访问次数</span>  <span class="hljs-attr">site_pv:</span> <span class="hljs-literal">false</span>  <span class="hljs-attr">site_pv_header:</span> <span class="hljs-string">&lt;i</span> <span class="hljs-string">class=&quot;fa</span> <span class="hljs-string">fa-eye&quot;&gt;&lt;/i&gt;</span>  <span class="hljs-attr">site_pv_footer:</span>  <span class="hljs-comment"># 页面阅读次数</span>  <span class="hljs-attr">page_pv:</span> <span class="hljs-literal">true</span>  <span class="hljs-attr">page_pv_header:</span> <span class="hljs-string">&lt;i</span> <span class="hljs-string">class=&quot;fa</span> <span class="hljs-string">fa-file-o&quot;&gt;&amp;nbsp;&amp;nbsp;本文阅读量&lt;/i&gt;</span>  <span class="hljs-attr">page_pv_footer:</span> <span class="hljs-string">次</span></code></pre><p>此时直接部署会发现访客数无法显示，这是因为Next内置的<a href="http://busuanzi.ibruce.info/">卜算子统计</a>域名已经过期了，需要进行修改，编辑 <code>/theme/next/layout/_third-party/analytics/busuanzi-counter.swig</code></p><p>修改</p><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">async</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre><p>为</p><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">async</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre><p>然后部署即可（本地显示访问人数可能有异常）</p><h2 id="添加评论系统"><a href="#添加评论系统" class="headerlink" title="添加评论系统"></a>添加评论系统</h2><ol><li>采用 valine 评论系统，具体步骤如下</li><li>注册 Leancloud 账号 <a href="https://leancloud.cn/">官网地址</a></li><li>进入控制台，新建一个应用，名字任意</li><li>进入新创建的应用，点击 <code>设置→应用 Key</code> ，复制 <code>App ID</code> 和 <code>App Key</code></li><li>点击 <code>设置→安全中心</code> ，在<code>Web安全域名</code>一栏填入网站的域名</li><li>打开<code>主题配置文件</code>，定位到 <code>valine</code> ，将<code>enable</code>设为<code>true</code>，并将<code>appid</code>和<code>appkey</code>填入</li><li>部署完成后即可在文章下方看到评论区</li></ol><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.jianshu.com/p/1f8107a8778c">hexo搭建个人博客–NexT主题优化</a></p><p><a href="https://blog.csdn.net/blue_zy/article/details/79071414">为你的Hexo加上评论系统-Valine</a></p><p><a href="https://www.cnblogs.com/php-linux/p/8418518.html">Hexo添加字数统计、阅读时长</a></p><p><a href="https://www.jianshu.com/p/fd3accaa2ae0">hexo博客解决不蒜子统计无法显示问题</a></p><p><a href="https://blog.csdn.net/blue_zy/article/details/79071414">为你的Hexo加上评论系统-Valine</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>博客</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Hexo</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【从零开始的Hexo博客搭建】主题美化</title>
+    <link href="/2019/02/11/%E5%8D%9A%E5%AE%A2/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA3%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96/"/>
+    <url>/2019/02/11/%E5%8D%9A%E5%AE%A2/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA3%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://hexo.io/themes/">Hexo 官方主题预览</a></p><p>Hexo 官方主页上提供了很多主题，这里我选择了比较流行的 <a href="http://theme-next.iissnan.com/">Next 主题</a>，以下内容皆基于 Next 主题。</p><h2 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h2><p>在博客根目录下执行</p><pre><code class="hljs bash">$ git <span class="hljs-built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</code></pre><p>如果会用魔法的话可以尝试以下指令启用代理加快下载速度</p><pre><code class="hljs bash">$ git config --global http.proxy socks5://127.0.0.1:1080 $ git config --global https.proxy socks5://127.0.0.1:1080</code></pre><p>停用代理使用以下指令</p><pre><code class="hljs bash">$ git config --global http.proxy <span class="hljs-string">&quot;&quot;</span>$ git config --global https.proxy <span class="hljs-string">&quot;&quot;</span></code></pre><h2 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h2><p>编辑根目录下的 _<code>config.yml</code> 文件，定位到 <code>theme</code> 字段，将其修改为 <code>next</code></p><pre><code class="hljs yaml"><span class="hljs-comment"># Extensions</span><span class="hljs-comment">## Plugins: https://hexo.io/plugins/</span><span class="hljs-comment">## Themes: https://hexo.io/themes/</span><span class="hljs-attr">theme:</span> <span class="hljs-string">next</span></code></pre><p>执行</p><pre><code class="hljs bash">$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code></pre><p>打开网页即可看到改变后的主题（如果没有变化可以尝试使用 <code>Ctrl+F5</code> 强制刷新）</p><h2 id="美化主题"><a href="#美化主题" class="headerlink" title="美化主题"></a>美化主题</h2><p>这里主要修改两个 <code>_config.yml</code> 文件，一个位于根目录下，称为<code>站点配置文件</code>，另一个位于 <code>themes/next</code> 下，成为<code>主题配置文件</code></p><h3 id="修改博客信息"><a href="#修改博客信息" class="headerlink" title="修改博客信息"></a>修改博客信息</h3><p>首先修改<code>站点配置文件</code>的 <code>Site</code> 部分</p><pre><code class="hljs yaml"><span class="hljs-comment"># Site</span><span class="hljs-attr">title:</span> <span class="hljs-string">Hexo</span><span class="hljs-comment"># 标题</span><span class="hljs-attr">subtitle:</span><span class="hljs-attr">description:</span><span class="hljs-comment"># 用于搜索引擎检索（可选）</span><span class="hljs-attr">keywords:</span><span class="hljs-attr">author:</span><span class="hljs-comment"># 网站作者</span><span class="hljs-attr">language:</span> <span class="hljs-comment"># 语言，修改为 zh-Hans</span><span class="hljs-attr">timezone:</span></code></pre><h3 id="修改主题类型"><a href="#修改主题类型" class="headerlink" title="修改主题类型"></a>修改主题类型</h3><p>Next 提供了四种风格的主题，在<code>主题配置文件</code>去掉对应注释即可更改为对应主题</p><pre><code class="hljs yaml"><span class="hljs-comment"># Schemes</span><span class="hljs-attr">scheme:</span> <span class="hljs-string">Muse</span><span class="hljs-comment">#scheme: Mist</span><span class="hljs-comment">#scheme: Pisces</span><span class="hljs-comment">#scheme: Gemini</span></code></pre><h3 id="修改脚标"><a href="#修改脚标" class="headerlink" title="修改脚标"></a>修改脚标</h3><p>默认情况下博客网页下方有许多不必要的信息，可以通过修改<code>站点配置文件</code>中的<code>footer</code>部分进行自行定义要显示的内容</p><pre><code class="hljs yaml"><span class="hljs-attr">footer:</span>  <span class="hljs-comment"># Specify the date when the site was setup.</span>  <span class="hljs-comment"># If not defined, current year will be used.</span>  <span class="hljs-comment">#since: 2015</span>  <span class="hljs-comment"># Icon between year and copyright info.</span>  <span class="hljs-attr">icon:</span> <span class="hljs-string">copyright</span>  <span class="hljs-comment"># If not defined, will be used `author` from Hexo main config.</span>  <span class="hljs-attr">copyright:</span>  <span class="hljs-comment"># -------------------------------------------------------------</span>  <span class="hljs-comment"># Hexo link (Powered by Hexo).</span>  <span class="hljs-attr">powered:</span> <span class="hljs-literal">false</span>  <span class="hljs-attr">theme:</span>    <span class="hljs-comment"># Theme &amp; scheme info link (Theme - NexT.scheme).</span>    <span class="hljs-attr">enable:</span> <span class="hljs-literal">false</span>    <span class="hljs-comment"># Version info of NexT after scheme info (vX.X.X).</span>    <span class="hljs-attr">version:</span> <span class="hljs-literal">false</span>  <span class="hljs-comment"># -------------------------------------------------------------</span>  <span class="hljs-comment"># Any custom text can be defined here.</span>  <span class="hljs-comment">#custom_text: Hosted by &lt;a target=&quot;_blank&quot; href=&quot;https://pages.github.com&quot;&gt;GitHub Pages&lt;/a&gt;</span></code></pre><h3 id="显示浏览百分比"><a href="#显示浏览百分比" class="headerlink" title="显示浏览百分比"></a>显示浏览百分比</h3><p>编辑<code>主题配置文件</code>，将<code>scrollpercent</code>设为<code>true</code></p><h3 id="修改头像"><a href="#修改头像" class="headerlink" title="修改头像"></a>修改头像</h3><p>将要替换的头像放在 <code>themes/next/source/images</code> 下，修改<code>主题配置文件</code>的<code>Sidebar Avatar</code>部分启用对应头像</p><pre><code class="hljs yaml"><span class="hljs-comment"># Sidebar Avatar</span><span class="hljs-comment"># in theme directory(source/images): /images/avatar.gif</span><span class="hljs-comment"># in site  directory(source/uploads): /uploads/avatar.gif</span><span class="hljs-attr">avatar:</span> <span class="hljs-string">/images/avatar.gif</span></code></pre><h3 id="设置主页文章自动折叠"><a href="#设置主页文章自动折叠" class="headerlink" title="设置主页文章自动折叠"></a>设置主页文章自动折叠</h3><p>编辑<code>主题配置文件</code>，定位到<code>auto_excerpt</code>字段并设<code>enable</code>为<code>true</code></p><h3 id="设置网站图标"><a href="#设置网站图标" class="headerlink" title="设置网站图标"></a>设置网站图标</h3><p>将图标图片放在<code>themes\next\source\images</code>下，编辑<code>主题配置文件</code>，修改<code>favicon</code>字段</p><pre><code class="hljs yaml"><span class="hljs-attr">favicon:</span>  <span class="hljs-attr">small:</span> <span class="hljs-string">/images/logo.ico</span>  <span class="hljs-attr">medium:</span> <span class="hljs-string">/images/logo.ico</span>  <span class="hljs-attr">apple_touch_icon:</span> <span class="hljs-string">/images/logo.ico</span></code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>博客</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Hexo</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【从零开始的Hexo博客搭建】文章发布</title>
+    <link href="/2019/02/11/%E5%8D%9A%E5%AE%A2/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA2%E5%8D%9A%E5%AE%A2%E5%8F%91%E5%B8%83/"/>
+    <url>/2019/02/11/%E5%8D%9A%E5%AE%A2/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA2%E5%8D%9A%E5%AE%A2%E5%8F%91%E5%B8%83/</url>
+    
+    <content type="html"><![CDATA[<p>完成了基本的框架搭建后，就可以发布文章了。Hexo支持Markdown格式，可以在本地使用特定的编辑器来编写（比如 <a href="https://www.typora.io/">Typora</a>）。下面简单记录一下步骤。</p><h2 id="文章创建和发布"><a href="#文章创建和发布" class="headerlink" title="文章创建和发布"></a>文章创建和发布</h2><p>在博客根目录下右键打开 Git Bash ，输入</p><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;文章题目&quot;</span></code></pre><p>输入后可以在 <code>source/_posts</code>文件夹下发现新建好的 <code>md</code> 文件，使用编辑器打开，开头的部分是 yaml 配置部分，<code>title</code> 代表文章的标题，<code>date</code> 代表文章的创建日期，<code>tags</code> 代表文章的标签， <code>categories</code> 代表文章的分类。</p><pre><code class="hljs yaml"><span class="hljs-meta">---</span><span class="hljs-attr">title:</span> <span class="hljs-string">hello-world</span><span class="hljs-attr">date:</span> <span class="hljs-number">2019-02-11 10:20:36</span><span class="hljs-attr">tags:</span> <span class="hljs-meta">---</span></code></pre><p>对其进行更改</p><pre><code class="hljs yaml"><span class="hljs-meta">---</span><span class="hljs-attr">title:</span> <span class="hljs-string">hello-world</span><span class="hljs-attr">date:</span> <span class="hljs-number">2019-02-11 10:20:36</span><span class="hljs-attr">tags:</span> <span class="hljs-string">Hexo</span><span class="hljs-attr">categories:</span> <span class="hljs-string">技术</span><span class="hljs-meta">---</span></code></pre><p>编辑完成并保存后，在博客根目录下执行</p><pre><code class="hljs bash">$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code></pre><p>发布完成后即可在网站旁边看到对应的标签和分类。</p><h2 id="关于文章中插入数学公式"><a href="#关于文章中插入数学公式" class="headerlink" title="关于文章中插入数学公式"></a>关于文章中插入数学公式</h2><p><a href="https://www.jianshu.com/p/7ab21c7f0674">参考教程</a></p><p>博客根目录下运行</p><pre><code class="hljs bash">npm uninstall hexo-renderer-marked --savenpm install hexo-renderer-kramed --save</code></pre><p>在主题配置文件中开启mathjax开关</p><pre><code class="hljs yaml"><span class="hljs-attr">math:</span>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment"># Default (true) will load mathjax / katex script on demand.</span>  <span class="hljs-comment"># That is it only render those page which has `mathjax: true` in Front-matter.</span>  <span class="hljs-comment"># If you set it to false, it will load mathjax / katex srcipt EVERY PAGE.</span>  <span class="hljs-attr">per_page:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment"># hexo-renderer-pandoc (or hexo-renderer-kramed) required for full MathJax support.</span>  <span class="hljs-attr">mathjax:</span>    <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>    <span class="hljs-comment"># See: https://mhchem.github.io/MathJax-mhchem/</span>    <span class="hljs-attr">mhchem:</span> <span class="hljs-literal">false</span></code></pre><p>在文章的Front-matter中打开mathjax开关</p><pre><code class="hljs markdown">---title: index.htmldate: 2016-12-28 21:01:30tags:mathjax: true--</code></pre><h2 id="关于文章中插入图片"><a href="#关于文章中插入图片" class="headerlink" title="关于文章中插入图片"></a>关于文章中插入图片</h2><h3 id="方法一：本地"><a href="#方法一：本地" class="headerlink" title="方法一：本地"></a>方法一：本地</h3><p><a href="https://blog.csdn.net/sugar_rainbow/article/details/57415705">参考教程</a></p><p>参考了以上链接中的文章，主要步骤总结如下：</p><ol><li><p>用编辑器打开博客根目录下的 _<code>config.yml</code> 文件，定位到 <code>post_asset_folder</code> ，将其设为 <code>true</code></p></li><li><p>在博客根目录右键打开Git Bash，执行</p><pre><code class="hljs bash">$ npm install hexo-asset-image --save</code></pre></li><li><p>这时如果使用 <code>hexo new</code> 新建一篇文章，在 <code>source/_posts</code> 文件夹下会同时生成 <code>.md</code> 文件和与其同名的空文件夹，把要用到的图片放到文件夹中，然后就可以使用 <code>Markdown</code> 格式引入图片</p><pre><code class="hljs markdown">![<span class="hljs-string">你想输入的替代文字</span>](<span class="hljs-link">xxxx/图片名.jpg</span>)</code></pre><p>其中 xxxx 替换为空文件夹的名字，比如说创建一篇题为 Hello-world 的文章，其中引用了 1.jpg，那么格式就是</p><pre><code class="hljs markdown">![<span class="hljs-string">你想输入的替代文字</span>](<span class="hljs-link">Hello-world/1.jpg</span>)</code></pre></li></ol><h3 id="方法二：图床"><a href="#方法二：图床" class="headerlink" title="方法二：图床"></a>方法二：图床</h3><ol><li><p>上传图片到图床（SM.MS、路过图床等），获取到url链接</p></li><li><p>在markdown中替换图片对应链接</p></li></ol><h2 id="关于-Markdown-语法"><a href="#关于-Markdown-语法" class="headerlink" title="关于 Markdown 语法"></a>关于 Markdown 语法</h2><p>这方面网上教程比较多，提供两篇参考</p><p><a href="http://www.cnblogs.com/hnrainll/p/3514637.html">参考1</a></p><p><a href="https://www.jianshu.com/p/191d1e21f7ed">参考2</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>博客</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Hexo</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【从零开始的Hexo博客搭建】框架搭建</title>
+    <link href="/2019/02/11/%E5%8D%9A%E5%AE%A2/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA1%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA/"/>
+    <url>/2019/02/11/%E5%8D%9A%E5%AE%A2/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA1%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA/</url>
+    
+    <content type="html"><![CDATA[<p>寒假在家无聊就想着搭个博客玩玩，经过一番考察之后最终选择了Hexo+GitHub Pages的方案，写这篇文章的目的主要是记录一下搭建过程，方便以后参考。由于涉及到的内容比较多，所以分成几个部分来写。第一部分就写一下如何搭建Hexo博客的框架并且发布到GitHub Pages。</p><h2 id="创建-GitHub-项目"><a href="#创建-GitHub-项目" class="headerlink" title="创建 GitHub 项目"></a>创建 GitHub 项目</h2><p>在 Github 上创建名为 <code>user.github.io</code> 的项目，<code>user</code>替换成你的 Github 用户名</p><h2 id="安装-Git"><a href="#安装-Git" class="headerlink" title="安装 Git"></a>安装 <a href="https://www.git-scm.com/download/">Git</a></h2><p>命令提示符中输入 <code>git --version</code> 检验是否安装成功</p><h2 id="安装-Node-js"><a href="#安装-Node-js" class="headerlink" title="安装 Node.js"></a>安装 <a href="https://nodejs.org/en/">Node.js</a></h2><p>命令提示符中输入 <code>node -v</code> 和 <code>npm -v</code> 检验是否安装成功</p><h2 id="安装-Hexo框架"><a href="#安装-Hexo框架" class="headerlink" title="安装 Hexo框架"></a>安装 <a href="https://hexo.io/zh-cn/">Hexo框架</a></h2><p>首先在要保存博客的位置右键打开Git Bash，输入</p><pre><code class="hljs bash">$ npm install hexo-cli -g</code></pre><p>安装完成后可用 <code>hexo -v</code> 验证是否安装成功，然后输入</p><pre><code class="hljs bash">$ hexo init Blog</code></pre><p>执行完毕后会在<strong>执行位置</strong>生成名为 <code>Blog</code> 的文件夹，该文件夹即为博客的根目录</p><h2 id="将-Git-连接到-GitHub"><a href="#将-Git-连接到-GitHub" class="headerlink" title="将 Git 连接到 GitHub"></a>将 Git 连接到 GitHub</h2><p>首先将 Git 连接到 Github <a href="https://segmentfault.com/a/1190000007466317">Git连接Github教程</a> </p><p>安装git支持插件</p><pre><code class="hljs bash">npm install hexo-deployer-git --save</code></pre><p>然后在博客根目录下编辑 _<code>config.yml</code> 文件，定位到 <code>deploy</code> 部分后按如下格式修改</p><pre><code class="hljs yaml"><span class="hljs-attr">deploy:</span>  <span class="hljs-attr">type:</span> <span class="hljs-string">git</span>  <span class="hljs-attr">repo:</span> <span class="hljs-string">git@github.com:medl2008/medl2008.github.io.git</span>  <span class="hljs-attr">branch:</span> <span class="hljs-string">master</span></code></pre><p><code>repo</code> 的部分网上有很多教程采用的是 <code>http</code> 的方式，但是我在实际操作过程中遇到了一些问题，所以最终采用上面的方法解决问题。</p><p>这里还需要注意<code>yml</code>格式的配置文件在所有参数的冒号后要有一个<strong>空格</strong>，否则无法正确识别。</p><h2 id="预览博客并发布到-Github"><a href="#预览博客并发布到-Github" class="headerlink" title="预览博客并发布到 Github"></a>预览博客并发布到 Github</h2><p>首先简单介绍一下几个指令，具体可见<a href="https://hexo.io/zh-cn/docs/commands.html">官方文档</a></p><ul><li><strong>hexo g</strong> - 生成博客静态文件</li><li><strong>hexo s</strong> - 启动本地服务器</li><li><strong>hexo d</strong> - 部署网站</li><li><strong>hexo clean</strong> - 清除缓存和已生成的静态文件</li></ul><p>在博客根目录执行</p><pre><code class="hljs bash">$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code></pre><p>此时打开 <a href="http://localhost:4000/">http://localhost:4000/</a> 可以看到博客预览</p><p>要将博客同步到 Github 需要下载插件</p><pre><code class="hljs bash">$ npm install hexo-deployer-git --save</code></pre><p>下载完成后执行</p><pre><code class="hljs bash">$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code></pre><p>然后打开 <code>user.github.io</code> 就可看到博客了，至此博客框架搭建完成。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>博客</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Hexo</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
   
 </search>
