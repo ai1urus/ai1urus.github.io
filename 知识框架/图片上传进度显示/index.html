@@ -1,0 +1,800 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.png">
+  <link rel="icon" href="/img/icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Jian Liu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1 在全局json中引入WeUI 123&quot;useExtendedLib&quot;: &amp;#123;    &quot;weui&quot;: true&amp;#125;  2 页面wxml，添加 123456789101112131415161718192021222324252627&lt;view class&#x3D;&quot;weui-cells&quot;&gt;    &lt;view c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【微信小程序】图片上传进度显示">
+<meta property="og:url" content="https://ai1urus.github.io/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E8%BF%9B%E5%BA%A6%E6%98%BE%E7%A4%BA/index.html">
+<meta property="og:site_name" content="Ai1urus&#39;s Blog">
+<meta property="og:description" content="1 在全局json中引入WeUI 123&quot;useExtendedLib&quot;: &amp;#123;    &quot;weui&quot;: true&amp;#125;  2 页面wxml，添加 123456789101112131415161718192021222324252627&lt;view class&#x3D;&quot;weui-cells&quot;&gt;    &lt;view c">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tuchuang-1258627244.cos.ap-nanjing.myqcloud.com/typora/image-20220601170721373.png">
+<meta property="article:published_time" content="2022-06-03T05:16:36.000Z">
+<meta property="article:modified_time" content="2022-09-11T14:28:30.292Z">
+<meta property="article:author" content="Jian Liu">
+<meta property="article:tag" content="知识框架">
+<meta property="article:tag" content="小程序开发">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tuchuang-1258627244.cos.ap-nanjing.myqcloud.com/typora/image-20220601170721373.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【微信小程序】图片上传进度显示 - Ai1urus&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ai1urus.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ai1urus</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-notebook"></i>
+                算法笔记
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                    
+                    基础知识
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95">
+                    
+                    解题记录
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                知识框架
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/Go/">
+                    
+                    Golang
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/MySQL/">
+                    
+                    MySQL
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/Redis/">
+                    
+                    Redis
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/">
+                    
+                    分布式系统
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                    
+                    计算机网络
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                    
+                    操作系统
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/">
+                    
+                    查看全部
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-docker"></i>
+                环境配置
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/%E4%B8%80%E6%96%87%E6%90%9E%E5%AE%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+                    
+                    一文搞定
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">
+                    
+                    博客搭建
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+                    
+                    查看全部
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【微信小程序】图片上传进度显示"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-06-03 13:16" pubdate>
+          2022年6月3日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          28 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【微信小程序】图片上传进度显示</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>1 在全局json中引入WeUI</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;useExtendedLib&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;weui&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>2 页面wxml，添加</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;weui-cells&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;weui-cell weui-cell_uploader&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;weui-cell__bd&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;weui-uploader&quot;</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;weui-uploader__hd&quot;</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">aria-role</span>=<span class="hljs-string">&quot;option&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;weui-uploader__overview&quot;</span>&gt;</span><br>                        <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;weui-uploader__title&quot;</span>&gt;</span>图片上传<span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span><br>                        <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;weui-uploader__info&quot;</span>&gt;</span>&#123;&#123;files.length&#125;&#125;/3<span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span><br>                    <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span><br>                <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;weui-uploader__bd&quot;</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;weui-uploader__files&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;uploaderFiles&quot;</span>&gt;</span><br>                        <span class="hljs-tag">&lt;<span class="hljs-name">block</span> <span class="hljs-attr">wx:for</span>=<span class="hljs-string">&quot;&#123;&#123;files&#125;&#125;&quot;</span> <span class="hljs-attr">wx:key</span>=<span class="hljs-string">&quot;*this&quot;</span>&gt;</span><br>                            <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;weui-uploader__file weui-uploader__file_status&quot;</span> <span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;previewImage&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;&#123;&#123;item&#125;&#125;&quot;</span>&gt;</span><br>                                <span class="hljs-tag">&lt;<span class="hljs-name">image</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;weui-uploader__img&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;&#123;&#123;item.path&#125;&#125;&quot;</span> <span class="hljs-attr">mode</span>=<span class="hljs-string">&quot;aspectFill&quot;</span> /&gt;</span><br>                                <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">aria-role</span>=<span class="hljs-string">&quot;alert&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;weui-uploader__file-content&quot;</span>&gt;</span>&#123;&#123;item.progress&#125;&#125;%<span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span><br>                            <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span><br>                        <span class="hljs-tag">&lt;/<span class="hljs-name">block</span>&gt;</span><br>                    <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span><br>                    <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;weui-uploader__input-box&quot;</span>&gt;</span><br>                        <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">aria-role</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">&quot;上传&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;weui-uploader__input&quot;</span> <span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;chooseImage&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span><br>                    <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span><br>                <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>3 页面js，添加</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-attr">data</span>: &#123;<br>    <span class="hljs-attr">pictureUrl</span>: <span class="hljs-title function_">getApp</span>().<span class="hljs-property">globalData</span>.<span class="hljs-property">server</span> + <span class="hljs-string">&#x27;/file/fileUpload&#x27;</span>,<br>    <span class="hljs-attr">form</span>: &#123;<br>        <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;&quot;</span>,<br>        <span class="hljs-attr">ownername</span>: <span class="hljs-string">&quot;&quot;</span><br>    &#125;,<br>    <span class="hljs-attr">files</span>: [],<br>    <span class="hljs-attr">waitPicNum</span>: <span class="hljs-number">3</span>,<br>&#125;,<br><span class="hljs-title function_">chooseImage</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> that = <span class="hljs-variable language_">this</span>;<br>    wx.<span class="hljs-title function_">chooseImage</span>(&#123;<br>        <span class="hljs-attr">sizeType</span>: [<span class="hljs-string">&#x27;original&#x27;</span>, <span class="hljs-string">&#x27;compressed&#x27;</span>], <span class="hljs-comment">// 可以指定是原图还是压缩图，默认二者都有</span><br>        <span class="hljs-attr">sourceType</span>: [<span class="hljs-string">&#x27;album&#x27;</span>, <span class="hljs-string">&#x27;camera&#x27;</span>], <span class="hljs-comment">// 可以指定来源是相册还是相机，默认二者都有</span><br>        <span class="hljs-title function_">success</span>(<span class="hljs-params">res</span>) &#123;<br>            <span class="hljs-comment">// 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片</span><br>            <span class="hljs-keyword">let</span> startIndex = that.<span class="hljs-property">data</span>.<span class="hljs-property">files</span>.<span class="hljs-property">length</span>;<br>            <span class="hljs-keyword">const</span> tempFilePaths = res.<span class="hljs-property">tempFilePaths</span>;<br>            <span class="hljs-keyword">let</span> newFiles = [];<br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>;i &lt; tempFilePaths.<span class="hljs-property">length</span>; i++)&#123;<br>                <span class="hljs-keyword">let</span> tmp = &#123;<span class="hljs-string">&quot;path&quot;</span>: tempFilePaths[i], <span class="hljs-string">&quot;progress&quot;</span>: <span class="hljs-number">0</span>&#125;;<br>                newFiles = newFiles.<span class="hljs-title function_">concat</span>(tmp);<br>            &#125;<br>            <br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(newFiles);<br><br>            that.<span class="hljs-title function_">setData</span>(&#123;<br>                <span class="hljs-attr">files</span>: that.<span class="hljs-property">data</span>.<span class="hljs-property">files</span>.<span class="hljs-title function_">concat</span>(newFiles)<br>            &#125;);<br>            <br>            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; tempFilePaths.<span class="hljs-property">length</span>; i++) &#123;<br>                <span class="hljs-keyword">const</span> uploadTask = wx.<span class="hljs-title function_">uploadFile</span>(&#123;<br>                    <span class="hljs-attr">filePath</span>: tempFilePaths[i],<br>                    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;file&#x27;</span>,<br>                    <span class="hljs-attr">url</span>: <span class="hljs-title function_">getApp</span>().<span class="hljs-property">globalData</span>.<span class="hljs-property">server</span> + <span class="hljs-string">&#x27;/file/fileUpload&#x27;</span>,<br>                    <span class="hljs-attr">formData</span>: &#123;<br>                        <span class="hljs-string">&#x27;method&#x27;</span>: <span class="hljs-string">&#x27;post&#x27;</span><br>                    &#125;,<br>                    <span class="hljs-title function_">success</span>(<span class="hljs-params">res</span>) &#123;<br>                        <span class="hljs-comment">// do something</span><br>                        <span class="hljs-keyword">const</span> data = res.<span class="hljs-property">data</span><br>                        <span class="hljs-keyword">let</span> imageTempObj = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(data);<br>                        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(imageTempObj);<br>                        that.<span class="hljs-property">data</span>.<span class="hljs-property">waitPicNum</span>--;<br>                    &#125;,<br>                    <span class="hljs-title function_">fail</span>(<span class="hljs-params">res</span>) &#123;<br>                        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;fail&quot;</span>);<br>                        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res);<br>                    &#125;<br>                &#125;)<br>                uploadTask.<span class="hljs-title function_">onProgressUpdate</span>(<span class="hljs-function">(<span class="hljs-params">res2</span>) =&gt;</span> &#123;<br>                    <span class="hljs-keyword">let</span> currProgress = <span class="hljs-string">&#x27;files[&#x27;</span> +(startIndex+i) + <span class="hljs-string">&#x27;].progress&#x27;</span><br>                    that.<span class="hljs-title function_">setData</span>(&#123;<br>                        [currProgress] : res2.<span class="hljs-property">progress</span><br>                    &#125;);<br>                    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;上传进度&#x27;</span>, res2.<span class="hljs-property">progress</span>)<br>                &#125;)<br>            &#125;<br>        &#125;,<br>    &#125;);<br>&#125;,        <br></code></pre></td></tr></table></figure>
+
+<p>效果预览</p>
+<p><img src="https://tuchuang-1258627244.cos.ap-nanjing.myqcloud.com/typora/image-20220601170721373.png" srcset="/img/loading.gif" lazyload alt="image-20220601170721373"></p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/AAAXiaoApple/article/details/121533604">uni.chooseImage 选择上传多张图片_嘿，小苹果的博客-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1693720">微信小程序实战开发一：在小程序中使用useExtendedLib方法引入官方UI - 云+社区 - 腾讯云</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/wechat-miniprogram/weui-miniprogram">wechat-miniprogram&#x2F;weui-miniprogram: 小程序WeUI组件库</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/" class="category-chain-item">知识框架</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/" class="category-chain-item">小程序开发</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/">#知识框架</a>
+      
+        <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%8F%91/">#小程序开发</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【微信小程序】图片上传进度显示</div>
+      <div>https://ai1urus.github.io/知识框架/图片上传进度显示/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Jian Liu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年6月3日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0/%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95/%E3%80%90%E9%A2%98%E5%9E%8B%E6%80%BB%E7%BB%93%E3%80%91%E5%AD%90%E5%BA%8F%E5%88%97/" title="【题型总结】子序列">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【题型总结】子序列</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/A100%E5%B7%A5%E4%BD%9C%E7%AB%99%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8%E9%85%8D%E7%BD%AE/" title="A100工作站显卡驱动配置">
+                        <span class="hidden-mobile">A100工作站显卡驱动配置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

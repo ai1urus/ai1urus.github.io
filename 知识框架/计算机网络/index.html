@@ -1,0 +1,1206 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.png">
+  <link rel="icon" href="/img/icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Jian Liu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="应用层———————————————————————————————————————————————————————————— 应用层：为应用程序提供统一接口。 表示层：将数据格式转化为其他机器可以识别的格式。 会话层：建立、管理和终止表示层连接实体。 ———————————————————————————————————————————————————————————— （1）HTTP（TCP）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【计算机网络】基础知识汇总">
+<meta property="og:url" content="https://ai1urus.github.io/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="Ai1urus&#39;s Blog">
+<meta property="og:description" content="应用层———————————————————————————————————————————————————————————— 应用层：为应用程序提供统一接口。 表示层：将数据格式转化为其他机器可以识别的格式。 会话层：建立、管理和终止表示层连接实体。 ———————————————————————————————————————————————————————————— （1）HTTP（TCP）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tuchuang-1258627244.cos.ap-nanjing.myqcloud.com/typora/stream.png">
+<meta property="og:image" content="https://tuchuang-1258627244.cos.ap-nanjing.myqcloud.com/typora/%E5%B8%A7%E7%B1%BB%E5%9E%8B.png">
+<meta property="og:image" content="https://tuchuang-1258627244.cos.ap-nanjing.myqcloud.com/typora/65cef2c44480910871a0b66cac1d5529.png">
+<meta property="article:published_time" content="2022-07-14T02:33:22.000Z">
+<meta property="article:modified_time" content="2022-09-11T14:29:41.242Z">
+<meta property="article:author" content="Jian Liu">
+<meta property="article:tag" content="知识框架">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tuchuang-1258627244.cos.ap-nanjing.myqcloud.com/typora/stream.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【计算机网络】基础知识汇总 - Ai1urus&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ai1urus.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ai1urus</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-notebook"></i>
+                算法笔记
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                    
+                    基础知识
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95">
+                    
+                    解题记录
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                知识框架
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/Go/">
+                    
+                    Golang
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/MySQL/">
+                    
+                    MySQL
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/Redis/">
+                    
+                    Redis
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/">
+                    
+                    分布式系统
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                    
+                    计算机网络
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                    
+                    操作系统
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/">
+                    
+                    查看全部
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-docker"></i>
+                环境配置
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/%E4%B8%80%E6%96%87%E6%90%9E%E5%AE%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+                    
+                    一文搞定
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">
+                    
+                    博客搭建
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+                    
+                    查看全部
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【计算机网络】基础知识汇总"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-14 10:33" pubdate>
+          2022年7月14日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          80 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【计算机网络】基础知识汇总</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><p>————————————————————————————————————————————————————————————</p>
+<p><strong>应用层：为应用程序提供统一接口。</strong></p>
+<p><strong>表示层：将数据格式转化为其他机器可以识别的格式。</strong></p>
+<p><strong>会话层：建立、管理和终止表示层连接实体。</strong></p>
+<p>————————————————————————————————————————————————————————————</p>
+<p><strong>（1）HTTP（TCP）长连接短连接区别</strong></p>
+<ul>
+<li>HTTP1.0只支持短连接，HTTP1.1起支持长连接。</li>
+<li>通过在请求头配置<code>keep-alive:true</code>，返回头响应<code>connection:keep-alive</code>来配置长连接。</li>
+<li>短连接完成一次HTTP请求和响应即关闭；长连接在连接有效期内可完成多次HTTP请求和响应，在请求包含多个资源的网页时可以减少逐个请求的开销。</li>
+<li>短连接保证每个连接都是有效连接；长连接不主动关闭会一直保持连接，而保持多个长连接占用系统连接资源，因此需要通过心跳检测机制确认连接方是否正常，并及时关闭无响应的连接。</li>
+</ul>
+<p><strong>（2）HTTP是什么？有什么特点？报文组成？</strong></p>
+<p>HTTP是在「两点（可以是服务器到服务器）」之间「传输」文字、图片、音频、视频等「超文本」数据的「约定和规范」。</p>
+<p>HTTP是无状态的，允许传输任意类型的数据。</p>
+<p>HTTP请求报文包括请求行（域名、请求方法、HTTP 版本）、请求头部（属性列表）、请求体</p>
+<p>HTTP响应报文包括响应行（状态码、状态描述、HTTP 版本）、响应头部（属性列表）、响应体</p>
+<p><strong>（3）HTTP常见状态码？</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>状态码</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1xx</td>
+<td></td>
+<td>协议处理中间状态</td>
+</tr>
+<tr>
+<td>2xx</td>
+<td>200 OK</td>
+<td>请求成功</td>
+</tr>
+<tr>
+<td></td>
+<td>204 No Content</td>
+<td>请求成功但响应头无body</td>
+</tr>
+<tr>
+<td></td>
+<td>206 Partial Content</td>
+<td>请求成功并返回资源的一部分，用于分块下载或断点续传</td>
+</tr>
+<tr>
+<td>3xx</td>
+<td>301 Moved Permanently</td>
+<td>永久重定向，应使用重定向的URL，响应头有Location信息</td>
+</tr>
+<tr>
+<td></td>
+<td>302 Found</td>
+<td>临时重定向，以后仍然需要使用原URL，响应头有Location信息</td>
+</tr>
+<tr>
+<td></td>
+<td>304 Not Modified</td>
+<td>当客户端仅请求指定日期之后的资源，此状态码表示自给定日期后资源无修改，<br />客户端可以继续使用缓存资源</td>
+</tr>
+<tr>
+<td>4xx</td>
+<td>400 Bad Request</td>
+<td>客户端请求出错</td>
+</tr>
+<tr>
+<td></td>
+<td>401 Unauthorized</td>
+<td>客户端必须登录才能执行请求</td>
+</tr>
+<tr>
+<td></td>
+<td>403 Forbidden</td>
+<td>客户端请求的资源被禁止访问</td>
+</tr>
+<tr>
+<td></td>
+<td>404 Not Found</td>
+<td>客户端请求的资源未找到</td>
+</tr>
+<tr>
+<td>5xx</td>
+<td>500 Internal Server Error</td>
+<td>服务器内部出错</td>
+</tr>
+<tr>
+<td></td>
+<td>501 Not Implement</td>
+<td>服务未实现</td>
+</tr>
+<tr>
+<td></td>
+<td>502 Bad Gateway</td>
+<td>网关或代理服务器访问后端服务器异常，得到无效的响应</td>
+</tr>
+<tr>
+<td></td>
+<td>503 Service Unavailable</td>
+<td>服务器过载</td>
+</tr>
+</tbody></table>
+<p><strong>（4）HTTP常见字段？</strong></p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>说明</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host</td>
+<td>请求：域名</td>
+<td><a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a></td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>响应：本次回应数据长度</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>请求&#x2F;响应：一般用于保持长连接</td>
+<td>Keep-Alive</td>
+</tr>
+<tr>
+<td>Content-Type&#x2F;Accept</td>
+<td>响应&#x2F;请求：指定数据格式</td>
+<td>text&#x2F;html; charset&#x3D;utf-8</td>
+</tr>
+<tr>
+<td>Content-Encoding&#x2F;Accept-Encoding</td>
+<td>响应&#x2F;请求：指定数据压缩格式</td>
+<td>gzip, deflate</td>
+</tr>
+</tbody></table>
+<p><strong>（5）GET与POST区别（功能规范、幂等性要求、请求参数位置）</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>GET</th>
+<th>POST</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>功能规定</td>
+<td>获取资源</td>
+<td>根据请求处理资源</td>
+</tr>
+<tr>
+<td>是否要求幂等</td>
+<td>是，可以做缓存，可以保存为书签</td>
+<td>否，无法缓存或保存为书签</td>
+</tr>
+<tr>
+<td>请求参数位置</td>
+<td>URL后</td>
+<td>可以在URL后，也可以在请求body中</td>
+</tr>
+</tbody></table>
+<p><strong>（6）HTTP缓存</strong></p>
+<p><strong>强制缓存（浏览器判断）</strong></p>
+<p>二者同时存在时以相对时间为准。当对已有资源再次请求时，浏览器会判断资源是否超时，如果未超时则返回<code>200（from disk cache）</code></p>
+<p>（一）相对时间：响应头添加<code>Cache-Control</code>字段，根据当前请求时间计算超时时间，不依赖于客户端和服务器的时间同步</p>
+<p>（二）绝对时间：响应头添加<code>Expires</code>（服务器时间）字段，当客户端与服务器时间不同步可能产生资源过期问题</p>
+<p><strong>协商缓存（服务器判断）</strong></p>
+<p>二者同时存在时以序列号为准。强制缓存失效时使用协商缓存。当服务器判断资源未过期时返回<code>304 Not Modified</code>且不返回资源，否则按正常请求结果返回状态码及资源。使用时间戳会暴露文件的修改时间信息，所以唯一标识符相对更加可靠。</p>
+<p>（一）时间戳：请求头中加入已有资源修改时间<code>If-Modified-Since</code>，服务器判断修改时间是否变动，响应头中包含<code>Last-Modified</code>。</p>
+<p>（二）序列号：请求头中加入已有资源序列号<code>If-None-Match</code>，服务器判断序列号是否一致，响应头中包含<code>Etag</code>。</p>
+<p><strong>（7）SSL安全证书中存储的什么内容，公钥还是私钥？</strong></p>
+<p>证书所有者公钥、证书信息（所有者名称、CA名称、序列号、版本信息、有效期）、签名算法、CA对证书内容的签名（对证书中所有内容计算摘要哈希值，然后使用私钥加密）</p>
+<p>公钥与私钥是相对的概念，他们都是只能单向加解密的。一般被服务器持有的称为私钥，分发给客户端的称为公钥，所以证书里是公钥。</p>
+<p><strong>（8）http和https的理解，https如何实现安全传输？</strong></p>
+<p>（8.1）http存在三个风险</p>
+<p>（一）窃听风险。明文传输，不能保证用户信息安全</p>
+<p>（二）冒充风险，不确认交流双方身份，不能保证服务器正确</p>
+<p>（三）篡改风险，不能保证信息被篡改</p>
+<p>（8.2）https使用非对称加密（加密对称密钥）和对称加密（加密HTTP报文）的混合加密机制解决了这个问题</p>
+<p>公钥加密，私钥解密保证了信息安全。</p>
+<p>私钥加密，公钥解密保证了身份不会被冒充。</p>
+<p>（一）信息加密，通过对称密钥加密HTTP报文，避免明文传输</p>
+<p>（二）身份证书，通过CA证书确认服务器身份正确</p>
+<p>（三）校验机制，通过报文加密防止信息被篡改</p>
+<p>（8.3）SSL&#x2F;TLS1.2连接建立过程</p>
+<p>（一）Server从CA获取证书</p>
+<p>（二）ClientHello，包括（1）支持的SSL&#x2F;TLS版本（2）支持的密码套件列表如RSA（3）一个随机数（Client Random）</p>
+<p>（三）ServerHello，包括（1）确认SSL&#x2F;TLS版本（2）确认密码套件列表（3）一个随机数（Server Random）（4）数字证书</p>
+<p>（四）Client回应，根据浏览器内置的CA公钥验证证书有效性。返回（1）一个随机数（pre-master key）（2）加密方式切换通知（后面都适用对称会话密钥加密）（3）握手结束通知（包含当前所有发生内容的信息摘要供服务器校验）</p>
+<p>（五）Client和Server各自使用三个随机数及约定的加密算法生成对称会话密钥</p>
+<p>（六）Server回应，回复（1）加密方式切换通知（2）握手结束通知（包含当前所有发生内容的信息摘要供客户端校验）</p>
+<p>（8.4）为什么需要四次握手？</p>
+<p>TLS1.2客户端需要在第三次握手发送随机key作为RSA密钥的一部分，服务端需要在第四次握手回复确认收到第三次握手的随机key。TLS1.3全面使用椭圆曲线算法，在第一次和第二次握手会发送密钥协商参数（TLS1.2中在第三次握手由客户端发送给服务器），分别为<code>A = a*G、B = b*G</code>，最终的密钥为<code>(a*G)*b</code>或<code>a*(G*b)</code>，无法根据A或B破解整个密钥。</p>
+<p><u>前向安全？快速恢复？</u></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zk3326312/article/details/80245756">详解TLS1.3的握手过程_曾柯的博客-CSDN博客_tls1.3</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43408952/article/details/124727681">TLS1.2 和 TLS1.3的简要区别_Simple-Easy 化繁为简的博客-CSDN博客_tls1.3和tls1.2</a></p>
+<p><strong>（9）HTTPS会把报文头加密吗</strong></p>
+<p>会。SSL&#x2F;TLS会将HTTP报文整体加密。</p>
+<p><u><strong>（10）HTTP各版本对比</strong>✨✨</u></p>
+<p>HTTP1.0</p>
+<p>缺点：只有短连接</p>
+<p>HTTP1.1</p>
+<p>改进：引入长连接，支持管道传输（连续发送多个请求，不必等待返回响应后再发送）</p>
+<p>缺点：</p>
+<p>（1）请求&#x2F;响应头未压缩，只能压缩Body。</p>
+<p>（2）HTTP Header头部较大且重复。</p>
+<p>（3）服务器按顺序响应，存在队头阻塞。</p>
+<p>（4）没有请求优先级控制，并发连接数有限。</p>
+<p>（5）不支持服务器推送消息。</p>
+<p>HTTP2.0</p>
+<p>改进：</p>
+<p><img src="https://tuchuang-1258627244.cos.ap-nanjing.myqcloud.com/typora/stream.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>（1）直接将HTTP Header和Body存储为二进制，分别定义为Header Frame和Body Frame，可以直接读写二进制（如200不用拆成’2’ ‘0’ ‘0’，而是直接保存200），加快传输速度。帧的类型如下：</p>
+<p><img src="https://tuchuang-1258627244.cos.ap-nanjing.myqcloud.com/typora/%E5%B8%A7%E7%B1%BB%E5%9E%8B.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>（2）引入HPACK算法，在客户端和服务器为高频Header字段建立索引表，包括静态表（统计生成的61个高频字段）、动态表（同一连接传输过程中的完全相同的字段）及霍夫曼编码。</p>
+<p>（3）引入Stream，一条TCP连接拆分为多个Stream，一个Stream中的Request和Response与HTTP&#x2F;1中的概念对应，Message中包含一个或多个Frame，以二进制存放HTTP&#x2F;1报文内容。一个HTTP消息（request response）可以有多个frame，一个frame可以有多个TCP报文，也可以有多个frame在一个tcp报文中。</p>
+<p>（4）多路复用，使用一个TCP连接中的多个Stream实现并发，不同Stream的帧可以乱序发送，但同一个Stream的帧必须有序。通过设置Stream的优先级来实现对不同资源的优先顺序访问。客户端必须是奇数号帧，服务器是偶数号。</p>
+<p>（5）服务器推送（比如返回html时同时返回对应的css）可以使用控制帧中的PUSH_PROMISE发起，组装在response message中。</p>
+<p><a target="_blank" rel="noopener" href="https://xiaolincoding.com/network/2_http/http2.html#%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%BB%E5%8A%A8%E6%8E%A8%E9%80%81%E8%B5%84%E6%BA%90">3.6 HTTP&#x2F;2 牛逼在哪？ | 小林coding</a></p>
+<p>缺点：</p>
+<p>（1）仍存在队头阻塞的问题。运行在TCP上，TCP丢包时整个TCP都要等待重传。</p>
+<p>（2）TCP与TLS本身握手的延时</p>
+<p>（3）网络迁移需要重新连接，TCP根据四元组标识连接</p>
+<p>HTTP3.0</p>
+<p>改进：</p>
+<p>（1）基于UDP实现了QUIC协议，在UDP上建立一套伪TCP连接，UDP不存在队头阻塞。</p>
+<p>（2）自定义了握手流程，同时把TLS连接的建立过程整合在了握手中，避免了连接启动时延。</p>
+<p>（3）使用连接ID标识连接而不是借助TCP的四元组。</p>
+<p>QUIC不依赖于操作系统实现</p>
+<p><strong>（11）浏览器输入url到出现画面的过程</strong></p>
+<p>URL解析、HTTP报文封装、DNS、IP报文封装、MAC报文封装、物理传输、路由、拆包、相同路径返回HTML文件，拆包、解析并显示</p>
+<p><strong>（12）能起一个服务在443端口同时监听TCP和UDP吗？</strong></p>
+<p>可以。同一个端口的TCP和UDP可以分别监听，但同一个端口单独的TCP&#x2F;UDP无法被多个服务监听。</p>
+<p>多个进程舰艇同一个端口只能是一个主进程bind后listen前fork生成子进程。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/L13763338360/article/details/106519027">如何多个进程监听同一个端口_L13763338360的博客-CSDN博客_多进程监听同一端口</a></p>
+<p><strong>（13）session和cookie</strong></p>
+<p>服务器生成sessionID，发送给客户端，同时在服务器本地维护一个session保存客户状态。客户端本地使用cookie保存sessionID及会话过程中的状态，发送请求时附上cookie以确认sessionID。Cookie可以长期保存，Session在客户端关闭或超时后失效。Cookie容易被窃取，Session相对安全。</p>
+<p>Session和Cookie交互本质上是用SessionID维护的，如果禁用Cookie可以在Post的body中或者Get的网址后添加SessionID来实现。</p>
+<p>分布式Session，使用缓存中间统一管理用户Session，服务器本身不存储。</p>
+<p><u>跨域请求？</u>chrome浏览器本地不同源，需要假设本地http服务器使用域名访问资源。</p>
+<p>同源&#x3D;协议（http&#x2F;https）+域名（不能是IP）+端口号</p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/19786827/answer/28752144">COOKIE和SESSION有什么区别？ - 轩辕志远的回答 - 知乎</a></p>
+<p>（14）聊天应用层协议设计？</p>
+<p>一、使用的网络层、传输层、应用层协议。TCP&#x2F;Websocket维护长连接</p>
+<p>二、UDP</p>
+<h2 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h2><p>————————————————————————————————————————————————————————————</p>
+<p>传输层：提供数据传输服务，屏蔽下层通信子网性能差异。规定数据传输方式及对应的发送和接收策略。TCP、UDP</p>
+<p>————————————————————————————————————————————————————————————</p>
+<p>分流&#x2F;合流：多条数据链路支持一条运输连接上的数据传输</p>
+<p>复用&#x2F;解复用：一条数据链路支持多条数据连接上的传输</p>
+<p>拼接&#x2F;分割：</p>
+<p>分段&#x2F;合段：通过将过长的数据拆分、组合来支持无限长数据的传输，比如说HTTP请求超过一个TCP包的容量，就会拆分成两个或多个包传输，接收端接收后再将其组合</p>
+<p>差错检测和纠错：</p>
+<p>流量控制：</p>
+<p><strong>（1）TCP、UDP区别，各自应用场景，视频流传输用哪个？</strong></p>
+<p>TCP是面向连接的，传输前后要进行连接的建立和断开；面向字节流，确保每一个字节按序到达；有粘包拆包现象；有拥塞控制；提供可靠服务。TCP通过序列号、超时重传、快速重传保证可靠性</p>
+<p>UDP无连接，按最大努力交付；面向报文？不拆分不合并，不会有粘包和拆包；无拥塞控制，可以1对1，1对多，多对多，实时通信。UDP首部较小。</p>
+<p>UDP报文包括源端口、目的端口、包长度、校验和、数据</p>
+<p>TCP报文包括源端口、目的端口、包长度、校验和、数据、<strong>标志位、序列号（保证交付顺序）、确认应答号（用于接收应答）</strong></p>
+<p>TCP保证无损坏、无间隔、非冗余、按序。TCP面向连接（一对一）、可靠（保证交付）、字节流（按序接受，重复丢弃）</p>
+<p>连接、可靠性、服务对象数量、拥塞控制和流量控制、首部长度、传输方式、分片不同（TCP在传输层拆分，UDP在IP层拆分）</p>
+<p><strong>（2）为什么要三次握手</strong></p>
+<p>三次握手主要是为了初始化Socket、窗口大小、序列号</p>
+<p>避免重复历史连接：在网络拥堵或客户端宕机导致SYN包过期时，客户端会判断服务器返回的ACK包是否与本次发送的SYN包对应，如果不对应则为历史连接，发送RST终止。</p>
+<p>同步双方初始序列号：序列号用于唯一标识TCP报文，同时指定其接受顺序。接收方可以去除重复包，发送方可以确定已接收包。三次握手刚好可以保证序列号被两方都接收。</p>
+<p>避免资源浪费：避免了重复连接造成的资源浪费。</p>
+<p>两次握手无法避免重复历史连接，四次握手中的二三步可以合并。</p>
+<p>SYN攻击？</p>
+<p>Linux有SYN半连接队列和Accept全连接队列，收到SYN加入SYN队列，收到ACK则由SYN转入Accept队列。使用accept()接口从Accept队列中取出socket连接。SYN队列满了可以不加入SYN，直接返回？那SYN队列的作用是什么</p>
+<p>（3）为什么需要改变每次连接的初始化序列号？</p>
+<p>首先是避免序列号回绕（使用TCP时间戳判断数据包是否是递增的，但如果是上一个周期后半部分和本周期前半部分的怎么办？）、接收历史报文，其次避免序列号伪造？？</p>
+<p>（3）TCP报文组成</p>
+<p>序列号、源端口、目的端口、ACK确认应答号、控制位（ACK、SYN、FIN、RST）、窗口大小、校验和、紧急指针</p>
+<p>（4）为什么需要TCP协议？</p>
+<p>IP层不可靠，只负责将网络数据包转交，不保证顺序和数据完整性。TCP作用是保证数据包按序、完整、无冗余、无间隔的</p>
+<p>（5）什么是TCP连接？最大连接数？</p>
+<p>TCP连接为Socket四元组、序列号、窗口大小。理论最大连接数为理论最大IP数 <code>2^32</code> 乘以理论最大端口数<code>2^16</code>即 <code>2^48</code> ，但同时也受系统文件描述符限制。</p>
+<p><strong>为什么需要第四次挥手</strong></p>
+<p>ACK不会重传。四次挥手后等待2MSL（往返一次的超时时间），使得本次连接所有报文过期，避免影响后面连接。</p>
+<p>MSL 默认30s，略长于TLL64跳的时间</p>
+<p>TTL 默认64跳</p>
+<p>RTT Round-Trip Time 消息往返一次、两次握手的时间</p>
+<p>RTO Retransmission Time out 重传超时时间，一般比RTT略长</p>
+<p>MTU</p>
+<p>MSS</p>
+<p>（6）TCP重传机制？</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>超时重传</th>
+<th>快速重传</th>
+<th>选择性确认</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>触发机制</td>
+<td>RTO定时器到期</td>
+<td>连续3次接收到相同ACK</td>
+<td>连续3次接收到相同ACK</td>
+</tr>
+<tr>
+<td>额外处理机制</td>
+<td>每次RTO到期后置为2*RTO<br />继续等待，最多2次</td>
+<td></td>
+<td>返回ACK时附加SACK，SACK记录在ACK<br />序列好之后已经收到的包的编号</td>
+</tr>
+<tr>
+<td>拥塞控制</td>
+<td>sstresh &#x3D; cwnd&#x2F;2, cwnd &#x3D; 1</td>
+<td>sstresh &#x3D; cwnd&#x2F;2, cwnd &#x3D; sstresh + 3</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>（7）TCP拥塞控制？</p>
+<p>慢启动，指数级增长</p>
+<p>阈值，增长到阈值之后进入拥塞避免，每次增加1&#x2F;cwnd，相当于线性增长</p>
+<p>（8）TCP三次握手流程</p>
+<p>服务端</p>
+<p>S1 创建Socket，返回SocketID</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">socket</span><span class="hljs-params">(<span class="hljs-type">int</span> domain, <span class="hljs-type">int</span> type, <span class="hljs-type">int</span> protocol)</span></span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>domian：PF_INET、PF_INET6、PF_LOCAL等</li>
+<li>type：SOCK_STREAM(TCP)、SOCK_DGRAM(UDP)、SOCK_RAW（原始SOCKET）</li>
+<li>protocol：废弃</li>
+</ul>
+<p>S2 使用SocketID进行端口绑定</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-built_in">bind</span>(<span class="hljs-type">int</span> fd, sockaddr* addr, <span class="hljs-type">socklen_t</span> len)<br><span class="hljs-comment">// 等价于下式，但由于设计之初没有void*，所以使用sockaddr，在使用前转换成目标指针</span><br><span class="hljs-built_in">bind</span>(<span class="hljs-type">int</span> fd, <span class="hljs-type">void</span>* addr, <span class="hljs-type">socklen_t</span> len)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>addr：通用地址格式，可以是IPv4、IPv6或Local</li>
+<li>len：传入地址长度，通过地址长度来判断地址格式类型</li>
+</ul>
+<p>S3 开始listen对应端口</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">listen</span><span class="hljs-params">(<span class="hljs-type">int</span> socketfd, <span class="hljs-type">int</span> backlog)</span></span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>backlog：可接受的并发数目，参数越大可并发服务的数量越多</li>
+</ul>
+<p>S4 Accept请求</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">accept</span><span class="hljs-params">(<span class="hljs-type">int</span> listensockfd, <span class="hljs-keyword">struct</span> sockaddr *cliaddr, <span class="hljs-type">socklen_t</span> *addrlen)</span></span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>listensockfd：上述服务端socketID</li>
+<li>cliaddr：客户端地址+端口</li>
+<li>addrlen：客户端地址和端口信息长度</li>
+<li>返回值： 新的描述字，代表与服务器与指定客户端的连接ID。服务器与不同客户端连接的描述字不同。</li>
+</ul>
+<p>客户端</p>
+<p>S1 创建Socket，获取SocketID（同服务端）</p>
+<p>S2 使用SocketID进行端口绑定（自动完成）</p>
+<p>客户端在本地的端口绑定一般由内核根据一定的算法来选择一个临时端口作为源端口，因此不必手动调用bind函数(手动指定容易造成端口冲突)</p>
+<p>S3 使用connect向服务端发起连接请求，如果是TCP协议则触发三次握手流程</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">connect</span><span class="hljs-params">(<span class="hljs-type">int</span> sockfd, <span class="hljs-type">const</span> <span class="hljs-keyword">struct</span> sockaddr *servaddr, <span class="hljs-type">socklen_t</span> addrlen)</span></span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>servaddr：服务端地址+端口</li>
+<li>addrlen：服务端地址和端口信息长度</li>
+</ul>
+<p>三次握手流程</p>
+<p><img src="https://tuchuang-1258627244.cos.ap-nanjing.myqcloud.com/typora/65cef2c44480910871a0b66cac1d5529.png" srcset="/img/loading.gif" lazyload alt="三次握手"></p>
+<ol>
+<li>客户端发送SYN包，同时发送当前序列号j，客户端进入SYNC_SENT状态（阻塞）</li>
+<li>服务端接收到SYN后，返回ACK（j+1）作为应答，同时发送一个SYN包（k）来检测客户端的响应状态，最后服务端进入SYNC_RCVD状态（阻塞）</li>
+<li>客户端接收到ACK（j+1），即connect调用返回，表示客户端到服务器的单向连接已建立，客户端状态转为ESTABLISHED，最后向服务端发送ACK（k+1），代表客户端响应正常。</li>
+<li>服务端接收ACK（k+1），即accept调用返回，表示服务端到客户端的单向连接也建立成功，服务器状态转为ESTABLISHED。</li>
+</ol>
+<p>————————————————————————————————————————————————————————————</p>
+<h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><p>确定数据传输路线。选择合适的路由和节点。IP、ICMP（IP包传输错误和性能监测）、ARP、RARP</p>
+<p><strong>同一局域网A ping B流程，会用到哪些网络协议？</strong></p>
+<p>ping 工作在应用层，直接使用网络层的ICMP（Internet Control Message Protocol）协议</p>
+<p>主要用到ICMP协议和ARP协议</p>
+<p>首先使用ARP协议获取到MAC地址，本机查路由表、ARP缓存，直到定位到下一个节点的MAC地址，路由器返回</p>
+<p>ARP主要获取IP地址对应的MAC地址</p>
+<p>ICMP主要由路由器发送？消息类型包括</p>
+<p>目标不可达消息3：路由器无法将数据包转发给目标地址时返回此消息</p>
+<p>重定向消息5：请求主机路由表匹配失败使用默认路由发送时，默认路由器将更优的路径返回给请求主机。</p>
+<p>超时消息11：IP包中的TTL（终于看到这个了）每经过一次路由就-1，变为0时IP包丢弃，此时路由器返回一个ICMP超时消息</p>
+<p>回送消息0、8：消息送达（ping指令）</p>
+<p>原点抑制、路由探索（路由器请求、路由器公告）、地址掩码</p>
+<p>ICMPv6：在IPv6中替代ARP，融合了ARP、ICMP重定向和ICMP路由探索，</p>
+<p><strong>ARP协议工作流程，ARP表记录那些字段？</strong></p>
+<p>IP、MAC地址</p>
+<p><strong>Arp协议中网关怎么去转换ip地址到对应MAC地址的？</strong></p>
+<p>先查ARP缓存，如果有的话直接返回。否则向整个子网广播ARP请求，请求包括目的IP地址，当目的主机接受到ARP请求后将自己的IP地址塞入ARP响应包返回给源主机。源主机和目的主机都会将对方的IP和MAC地址缓存一段时间。每执行一次ARP都会清空对应的缓存。</p>
+<p><strong>如果数据包不在当前子网内，怎么传输到目标子网网关的</strong></p>
+<p>通过DNS获取IP地址，ARP查路由表和ARP缓存获取下一节点MAC地址，再</p>
+<p><strong>局域网内通信流程，跨局域网通信流程</strong></p>
+<p>路由表规则？要到达目标地址走哪一个网关，使用目标地址与路由表中所有条目比较匹配，</p>
+<p>路由表记录指向目的地的路径，</p>
+<p>DNS使用哪些协议？</p>
+<p>MAC（Media Access Control）表：已知MAC地址后进行通讯，位于交换机中，记录局域网内主机端口MAC地址 到 交换机端口的映射。</p>
+<pre><code class=" mermaid">graph LR
+		A(源MAC地址 源端口 目的MAC地址 目的端口)
+		B[MAC表记录 源MAC地址+源端口]
+		C[MAC表查找 目的MAC地址+目的端口]
+		D&#123;找到对应条目?&#125;
+		E[向目的端口单播]
+		F[向除源端口外的所有端口广播]
+		A--&gt;B--&gt;C--&gt;D
+		D--&gt;|是| E
+		D--&gt;|否| F
+</code></pre>
+
+<p>ARP（Address Resolution Protocol）表：根据IP获取MAC地址，位于每个拥有IP地址节点（主机、交换机需配置IP、路由器）上，记录主机IP地址 到 MAC地址的映射。</p>
+<p>路由表：</p>
+<p>直连路由：</p>
+<p>非直连路由：</p>
+<p>IP地址划分有一定的从属规则，可以方便网络管理，MAC地址是完全随机的。IP是一个逻辑地址，MAC相当于物理地址，便于替换。</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1173761">转发表(MAC表)、ARP表、路由表总结 - 腾讯云开发者社区-腾讯云</a></p>
+<p>默认网关只能有一个，可以手动写入一条静态路由，让走向另一网段的数据默认走第二个网卡</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">// 网段2 为 10.10.10.1，机器上第二块网卡IP为10.40.4.200, 就是把第二网段所有IP10.xxx.xxx.xxx全都指向10.40.4.200转发<br>route add -p 10.0.0.0 mask 255.0.0.0 10.40.4.200<br></code></pre></td></tr></table></figure>
+
+<h2 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h2><p>————————————————————————————————————————————————————————————</p>
+<p><strong>数据链路层：负责数据帧封装、拆装、传输、差错检测和MAC寻址</strong></p>
+<p>————————————————————————————————————————————————————————————</p>
+<h3 id="（1）数据链路层怎么传输数据的？"><a href="#（1）数据链路层怎么传输数据的？" class="headerlink" title="（1）数据链路层怎么传输数据的？"></a><strong>（1）数据链路层怎么传输数据的？</strong></h3><h2 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h2><p>物理层：负责在物理网络中以比特流透明传输网络帧。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/" class="category-chain-item">知识框架</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="category-chain-item">计算机网络</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/">#知识框架</a>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【计算机网络】基础知识汇总</div>
+      <div>https://ai1urus.github.io/知识框架/计算机网络/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Jian Liu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月14日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" title="【计算机网络】基础知识汇总">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【计算机网络】基础知识汇总</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/Go/Go%E5%B9%B6%E5%8F%91/" title="【Go】Go并发编程">
+                        <span class="hidden-mobile">【Go】Go并发编程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

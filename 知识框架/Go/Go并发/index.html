@@ -1,0 +1,1142 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.png">
+  <link rel="icon" href="/img/icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Jian Liu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="sync.Mutex底层结构12345type Mutex struct&amp;#123;  state int32   &#x2F;&#x2F; 29 bits Waiters 阻塞等待的waiter数量 ｜ 1 bit Starving  是否处于饥饿状态 ｜ 1 bit Woken 是否有goroutine被唤醒 | 1 bit Locked 是否被锁定  sema uint32&amp;#125;  相关问题（1）如何解决">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Go】Go并发编程">
+<meta property="og:url" content="https://ai1urus.github.io/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/Go/Go%E5%B9%B6%E5%8F%91/index.html">
+<meta property="og:site_name" content="Ai1urus&#39;s Blog">
+<meta property="og:description" content="sync.Mutex底层结构12345type Mutex struct&amp;#123;  state int32   &#x2F;&#x2F; 29 bits Waiters 阻塞等待的waiter数量 ｜ 1 bit Starving  是否处于饥饿状态 ｜ 1 bit Woken 是否有goroutine被唤醒 | 1 bit Locked 是否被锁定  sema uint32&amp;#125;  相关问题（1）如何解决">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-11T10:53:31.000Z">
+<meta property="article:modified_time" content="2022-09-11T14:34:30.467Z">
+<meta property="article:author" content="Jian Liu">
+<meta property="article:tag" content="知识框架">
+<meta property="article:tag" content="Go">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>【Go】Go并发编程 - Ai1urus&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ai1urus.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ai1urus</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-notebook"></i>
+                算法笔记
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                    
+                    基础知识
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/%E8%A7%A3%E9%A2%98%E8%AE%B0%E5%BD%95">
+                    
+                    解题记录
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                知识框架
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/Go/">
+                    
+                    Golang
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/MySQL/">
+                    
+                    MySQL
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/Redis/">
+                    
+                    Redis
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/">
+                    
+                    分布式系统
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                    
+                    计算机网络
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                    
+                    操作系统
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/">
+                    
+                    查看全部
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-docker"></i>
+                环境配置
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/%E4%B8%80%E6%96%87%E6%90%9E%E5%AE%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+                    
+                    一文搞定
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">
+                    
+                    博客搭建
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+                    
+                    查看全部
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【Go】Go并发编程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-11 18:53" pubdate>
+          2022年7月11日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          90 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【Go】Go并发编程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="sync-Mutex"><a href="#sync-Mutex" class="headerlink" title="sync.Mutex"></a>sync.Mutex</h2><h3 id="底层结构"><a href="#底层结构" class="headerlink" title="底层结构"></a>底层结构</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Mutex <span class="hljs-keyword">struct</span>&#123;<br>  state <span class="hljs-type">int32</span> <br>  <span class="hljs-comment">// 29 bits Waiters 阻塞等待的waiter数量 ｜ 1 bit Starving  是否处于饥饿状态 ｜ 1 bit Woken 是否有goroutine被唤醒 | 1 bit Locked 是否被锁定</span><br>  sema <span class="hljs-type">uint32</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h3><p>（1）如何解决饥饿？</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>（1）设置正常模式和饥饿模式</p>
+<ul>
+<li><strong>正常模式：</strong>FIFO等待队列中队首的goroutine会和新到达的goroutine竞争，新到来的goroutine更有优势。</li>
+<li><strong>饥饿模式：</strong>锁释放后直接转交给FIFO队首的goroutine，新到达的goroutine直接加入等待队列队尾。</li>
+<li><strong>正常模式转饥饿模式：</strong>FIFO队首goroutine等待超过1ms。</li>
+<li><strong>饥饿模式转正常模式：</strong>当前加锁goroutine等待小于1ms 或 当前加锁goroutine为等待队列队尾。</li>
+<li>正常模式下新到达的goroutine更有优势是因为将锁转交给正在执行的goroutine可以避免上下文切换开销。</li>
+<li>正常模式下新到达的goroutine未获得锁会进入自旋：（1）未超出自旋次数上限（2）CPU核心大于1（3）GMP中P大于1，且P对应的本地G队列为空</li>
+</ul>
+<p><strong>等待队列的队首goroutine加锁逻辑</strong></p>
+<pre><code class=" mermaid">graph LR
+	A(Unlock)
+	B[队首协程A被激活]
+	C[协程A请求锁]
+	D&#123;是否获取到锁?&#125;
+	E[加锁]
+	F&#123;等待超过1ms?&#125;
+	G[转为饥饿模式]
+	H&#123;是否饥饿模式?&#125;
+	I&#123;等待小于1ms?&#125;
+	J&#123;是否队尾?&#125;
+	K[退出饥饿模式]
+	L(结束)
+  A --&gt; B
+  B --&gt; C
+  C --&gt; D
+  D --&gt;|是| E
+  D --&gt;|否| F
+  F --&gt;|是| G
+  E --&gt; H
+  H --&gt;|是| I
+  H --&gt;|否| L
+  I --&gt;|是| K
+  I --&gt;|否| J
+  J --&gt;|是| K
+  J --&gt;|否| L
+	K --&gt; L
+  G --&gt; L
+	
+	
+</code></pre>
+
+<p><strong>新到达goroutine加锁逻辑</strong></p>
+<pre><code class=" mermaid">graph LR
+	A(Lock)
+	B&#123;是否饥饿模式?&#125;
+	C[协程A请求锁]
+	D&#123;是否获取到锁?&#125;
+	E[协程A加入等待队列]
+	F&#123;是否满足自旋?&#125;
+	G[自旋次数+1]
+	H[加锁]
+	I(结束)
+	A --&gt; B
+	B --&gt;|是| E
+	B --&gt;|否| C
+	E --&gt; I
+	H --&gt; I
+	C --&gt; D
+	D --&gt;|是| H
+	D --&gt;|否| F
+	F --&gt;|否| E
+	F --&gt;|是| G
+	G --&gt; C
+	
+	
+</code></pre>
+
+
+
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>避免重入。可重入锁是指拥有锁的进程再请求锁不会阻塞而是直接返回，因此可以实现递归。Mutex不是可重入锁。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 基于Mutex的重入锁实现</span><br><span class="hljs-comment">// go get -u github.com/petermattis/goid</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;github.com/petermattis/goid&quot;</span><br><br><span class="hljs-keyword">type</span> ReentrantLock <span class="hljs-keyword">struct</span> &#123;<br>	sync.Mutex 	<span class="hljs-comment">// 内嵌锁</span><br>	owner <span class="hljs-type">int64</span><br>	reuse <span class="hljs-type">int32</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m *ReentrantLock)</span></span> Lock() &#123;<br>	me := goid.Get()<br><br>	<span class="hljs-comment">// 当前goroutine直接返回</span><br>	<span class="hljs-keyword">if</span> atomic.LoadInt64(&amp;m.owner) == me &#123;<br>		m.reuse++<br>		<span class="hljs-keyword">return</span><br>	&#125;<br><br>	<span class="hljs-comment">// 正常等待加锁</span><br>	m.Mutex.Lock()<br>	atomic.StoreInt64(&amp;m.owner, me)<br>	m.reuse = <span class="hljs-number">1</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m *ReentrantLock)</span></span> Unlock() &#123;<br>	me := goid.Get()<br><br>	<span class="hljs-keyword">if</span> atomic.LoadInt64(&amp;m.owner) != me &#123;<br>		<span class="hljs-built_in">panic</span>(fmt.Sprintf(<span class="hljs-string">&quot;%v unlock a lock of %v&quot;</span>, me, m.owner))<br>	&#125;<br><br>	m.reuse--<br>	<span class="hljs-keyword">if</span> m.reuse != <span class="hljs-number">0</span> &#123;<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	atomic.StoreInt64(&amp;m.owner, <span class="hljs-number">-1</span>)<br>	m.Mutex.Unlock()<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>避免Lock&#x2F;Unlock不成对 </p>
+</li>
+<li><p>避免死锁 </p>
+</li>
+<li><p>避免Mutex Copy</p>
+</li>
+</ul>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>详解：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/501972241">深入分析Golang的Mutex - 知乎</a></p>
+<p>关于Woken位：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1876245">Go高阶11，手摸手带你深入了解 Mutex 实现原理 - 腾讯云开发者社区-腾讯云</a></p>
+<p>关于等待队列：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ZQ4y1f7go/?vd_source=e457f02244cca597ca84729193bd5caf">【Golang】信号量 - runtime提供的等待队列_哔哩哔哩_bilibili</a></p>
+<h2 id="sync-RWMutex"><a href="#sync-RWMutex" class="headerlink" title="sync.RWMutex"></a>sync.RWMutex</h2><h3 id="底层结构-1"><a href="#底层结构-1" class="headerlink" title="底层结构"></a>底层结构</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> RWMutex <span class="hljs-keyword">struct</span>&#123;<br>    w Mutex<br>    writerSem <span class="hljs-type">uint32</span>		<span class="hljs-comment">// 写等待队列</span><br>    readerSem <span class="hljs-type">uint32</span>		<span class="hljs-comment">// 读等待队列</span><br>  	readerCount <span class="hljs-type">int32</span>		<span class="hljs-comment">// 读锁计数，当writer获取到锁，则readerCount(&gt;=0)反转为readerCount-rwmutexMaxReaders(&lt;0)</span><br>    readerWait <span class="hljs-type">int32</span>		<span class="hljs-comment">// 加写锁时，若readerCount不为0，则将readerCount赋给readerWait，并将writer加入等待队列，当readerWait减为0时唤醒</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="相关问题-1"><a href="#相关问题-1" class="headerlink" title="相关问题"></a>相关问题</h3><p>（1）读写锁优先级？</p>
+<h3 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h3><p>（1）Go中实现了写优先。一个阻塞中的加写锁会排除新的读锁。</p>
+<ul>
+<li><p>读锁在无写等待的情况下可以直接获取；有写等待的情况下需要加入等待队列，不添加新的读锁。</p>
+</li>
+<li><p>写锁在获取前首先要获得内部的<code>mutex</code>，然后需要等待写锁全部释放才能获取。</p>
+</li>
+<li><p>读锁在无写等待的情况下直接释放；有写等待时需要修改<code>Wait</code>并判断是否唤醒<code>writer</code>。</p>
+</li>
+<li><p>写锁释放时首先还原<code>Count</code>，然后唤醒所有等待的<code>reader</code>，最后释放内部<code>mutex</code>。</p>
+</li>
+<li><p><code>readerCount</code>为正时代表当前无<code>writer</code>等待，<code>readerCount</code>记录<code>当前reader数量</code>；</p>
+</li>
+<li><p><code>readerCount</code>为负时代表当前有<code>writer</code>等待，<code>readerCount</code>记录<code>当前reader数量-最大reader数量</code></p>
+</li>
+<li><p><strong><code>readerWait</code>仅在有<code>writer</code>等待时使用。</strong><code>writer</code>进入等待前会将<code>readerCount</code>记录在<code>readerWait</code>中，每当调用<code>RUnlock</code>时会使<code>readerWait-1</code>，当减为0时代表写锁释放完毕，可以唤醒<code>writer</code>。</p>
+</li>
+</ul>
+<pre><code class=" mermaid">graph LR
+  A(RLock)
+  B[Count++]
+  C&#123;Count&lt;0?&#125;
+  D[加入读等待队列]
+  E[加读锁成功]
+  F(结束)
+  A --&gt; B
+  B --&gt; C
+  C --&gt;|是|D
+  C --&gt;|否|E
+  E --&gt; F
+  D --&gt; F
+  
+  A1(RUnlock)
+  B1[Count--]
+  C1&#123;Count&lt;0?&#125;
+  D1[Wait--]
+  E1&#123;Wait==0?&#125;
+  F1[唤醒writer]
+  G1(结束)
+  A1 --&gt; B1
+  B1 --&gt; C1
+  C1 --&gt;|是|D1
+  C1 --&gt;|否|G1
+  D1 --&gt;E1
+  E1 --&gt;|是|F1
+  E1 --&gt;|否|G1
+  
+  A2(Lock)
+  B2[w.Lock]
+  C2[Count -= maxCount]
+  D2&#123;Count != 0?&#125;
+  E2[Wait = Count]
+  F2[加入写等待队列]
+  G2[加写锁成功]
+  H2(结束)
+  A2--&gt;B2
+  B2--&gt;C2
+  C2--&gt;D2
+  D2--&gt;|是|E2
+  E2--&gt;F2
+  D2--&gt;|否|G2
+  G2--&gt;H2
+  F2--&gt;H2
+  
+  A3(Unlock)
+  B3[Count += maxCount]
+  C3[唤醒所有reader]
+  D3[w.Unlock]
+  E3(结束)
+  A3--&gt;B3
+  B3--&gt;C3
+  C3--&gt;D3
+  D3--&gt;E3
+</code></pre>
+
+<p>（2）读优先的话可以去掉<code>Wait</code>，只通过<code>Count</code>是否为0来判断写锁是否可以获取。</p>
+<h3 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><p>避免复制锁</p>
+</li>
+<li><p>避免writer内部重入</p>
+</li>
+<li><p>避免reader内部调用writer重入</p>
+</li>
+<li><p>避免reader内部调用reader重入（如计算阶乘）</p>
+</li>
+<li><p>避免释放未加锁的RWMutex</p>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// unsafe获取锁内部变量</span><br><span class="hljs-keyword">type</span> RWMutex <span class="hljs-keyword">struct</span>&#123;<br>    sync.RWMutex<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m *RWMutex)</span></span> CountReader() &#123;<br>	reader := atomic.LoadInt32((*<span class="hljs-type">int32</span>)(unsafe.Pointer(<span class="hljs-type">uintptr</span>(unsafe.Pointer(m)) + unsafe.Sizeof(sync.Mutex&#123;&#125;) + unsafe.Sizeof(<span class="hljs-type">uint32</span>(<span class="hljs-number">0</span>))*<span class="hljs-number">2</span>)))<br><br>	<span class="hljs-keyword">if</span> reader != <span class="hljs-number">0</span> &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;ReaderCount is %v\n&quot;</span>, reader)<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		<span class="hljs-comment">// m.RLock()</span><br>		<span class="hljs-comment">// reader = atomic.LoadInt32((*int32)(unsafe.Pointer(uintptr(unsafe.Pointer(&amp;m)) + unsafe.Sizeof(sync.Mutex&#123;&#125;) + unsafe.Sizeof(uint32(0))*2)))</span><br>		fmt.Printf(<span class="hljs-string">&quot;ReaderCount is %v\n&quot;</span>, reader)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="sync-WaitGroup"><a href="#sync-WaitGroup" class="headerlink" title="sync.WaitGroup"></a>sync.WaitGroup</h2><h3 id="底层结构-2"><a href="#底层结构-2" class="headerlink" title="底层结构"></a>底层结构</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> WaitGroup <span class="hljs-keyword">struct</span>&#123;<br>    noCopy noCopy<br>    state1 [<span class="hljs-number">3</span>]<span class="hljs-type">uint32</span> <span class="hljs-comment">// 64位：waiter数，waitGroup计数，信号量；32位下信号量，waiter数，waitGroup计数。</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="相关问题-2"><a href="#相关问题-2" class="headerlink" title="相关问题"></a>相关问题</h3><p>（1）waiter数和计数值区别？</p>
+<ul>
+<li><code>waitGroup</code>计数使用<code>wg.Add()</code>添加，记录当前未完成的任务数，任务完成后调用<code>wg.Done()</code>使计数-1，减为0时修改信号量;</li>
+<li><code>waiter</code>计数使用<code>wg.Wait()</code>添加，记录当前等待的任务数。调用<code>wg.Wait()</code>的goroutine会循环等待。</li>
+</ul>
+<h3 id="注意事项-2"><a href="#注意事项-2" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><p>需要等所有Add完成后再Wait</p>
+</li>
+<li><p>重用WaitGroup时必须等wg变为0后才可以重新Add</p>
+</li>
+</ul>
+<h2 id="sync-Cond"><a href="#sync-Cond" class="headerlink" title="sync.Cond"></a>sync.Cond</h2><h3 id="相关问题-3"><a href="#相关问题-3" class="headerlink" title="相关问题"></a>相关问题</h3><p>（1）如何监测条件变量？</p>
+<ul>
+<li><code>Signal</code>：唤醒第一个goroutine（notify）</li>
+<li><code>Broadcast</code>：唤醒等待队列中全部goroutine（notifyAll）</li>
+<li><code>Wait</code>：将调用者放入等待队列（<strong>必须持有锁</strong>），阻塞，等待被Signal或Broadcast唤醒后再次检测条件，</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs go">c := sync.NewCond(&amp;sync.Mutex&#123;&#125;)<br><br>c.L.Lock()<br><span class="hljs-keyword">for</span> !condition &#123;<br>    c.Wait()<br>&#125;<br>c.L.Unlock()<br><br>c.Singal()<br>c.Broadcast()<br></code></pre></td></tr></table></figure>
+
+<h2 id="sync-Once"><a href="#sync-Once" class="headerlink" title="sync.Once"></a>sync.Once</h2><h3 id="底层结构-3"><a href="#底层结构-3" class="headerlink" title="底层结构"></a>底层结构</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Once <span class="hljs-keyword">struct</span>&#123;<br>    done <span class="hljs-type">uint32</span><br>    m Mutex<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="相关问题-4"><a href="#相关问题-4" class="headerlink" title="相关问题"></a>相关问题</h3><p>（1）如何保证只实现一次？</p>
+<h3 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案"></a>解决方案</h3><p>（1）只执行一次，注意要使用doSlow来避免修改了done状态而需要使用的变量还未初始化完毕的情况</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Once <span class="hljs-keyword">struct</span> &#123;<br>	sync.Mutex<br>	done <span class="hljs-type">int32</span><br>	v    <span class="hljs-type">int32</span><br>&#125;<br><span class="hljs-comment">// 划分成fast path 和 slow path方便内联</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(one *Once)</span></span> Do() &#123;<br>	<span class="hljs-keyword">if</span> atomic.LoadInt32(&amp;one.done) == <span class="hljs-number">0</span> &#123;<br>		one.doSlow()<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(one *Once)</span></span> doSlow() &#123;<br>	one.Lock()<br>	<span class="hljs-keyword">defer</span> one.Unlock()<br>	<span class="hljs-keyword">if</span> atomic.LoadInt32(&amp;one.done) == <span class="hljs-number">0</span> &#123; <span class="hljs-comment">// 和单例模式里的双检锁一样</span><br>		<span class="hljs-keyword">defer</span> atomic.StoreInt32(&amp;one.done, <span class="hljs-number">1</span>)<br>		one.v = <span class="hljs-number">1000</span><br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="sync-Map"><a href="#sync-Map" class="headerlink" title="sync.Map"></a>sync.Map</h2><h3 id="底层结构-4"><a href="#底层结构-4" class="headerlink" title="底层结构"></a>底层结构</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Map <span class="hljs-keyword">struct</span> &#123;<br>    mu Mutex<br>    read atomic.Value <span class="hljs-comment">// 只读缓存</span><br>    dirty <span class="hljs-keyword">map</span>[<span class="hljs-keyword">interface</span>&#123;&#125;]*entry <span class="hljs-comment">// 读写缓存</span><br>    misses <span class="hljs-type">int</span> <span class="hljs-comment">// 每次从dirty中读取就+1，当等于dirty长度时dirty提升为read并清空dirty</span><br>&#125;<br><br><span class="hljs-keyword">type</span> readOnly <span class="hljs-keyword">struct</span> &#123;<span class="hljs-comment">//read结构</span><br>    m <span class="hljs-keyword">map</span>[<span class="hljs-keyword">interface</span>&#123;&#125;]*entry<br>    amended <span class="hljs-type">bool</span> <span class="hljs-comment">// 当dirty包含read中不存在的项时为true</span><br>&#125;<br><br><span class="hljs-comment">// 标识删除的项</span><br><span class="hljs-keyword">var</span> expunged = unsafe.Pointer(<span class="hljs-built_in">new</span>(<span class="hljs-keyword">interface</span>&#123;&#125;))<br><br><span class="hljs-comment">// 标识一项</span><br><span class="hljs-keyword">type</span> entry <span class="hljs-keyword">struct</span>&#123;<br>    p unsafe.Pointer<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="相关问题-5"><a href="#相关问题-5" class="headerlink" title="相关问题"></a>相关问题</h3><p>（1）如何保证哈希并发访问安全同时保证读写效率？</p>
+<p>答：concurrent-map分片加锁，根据哈希值划分多个区间，为每个区间设置单独的锁。sync.Map设置双重缓冲区。</p>
+<p>（2）同一个值只存在于read或dirty的一个中吗？</p>
+<p>答：不是，可能都存在。读的时候尽量多从read中读，写的时候更新read，当read不存在值时加锁写dirty，避免了对read全表加锁。</p>
+<p>（3）dirty升为read会覆盖read原有的key吗？</p>
+<p>答：会。</p>
+<p>（4）misses记录从read中读取miss的次数，假设每次都读一个不存在的值，读取多次就会把dirty升为read，会不会覆盖掉read中未使用的key?</p>
+<p>答：升为read后dirty置为nil，此时不会进入miss相关逻辑，因此不会重复覆盖。在dirty为nil时的第一次Store操作会将read所有非空值内容回写到dirty，然后将新key写dirty，避免了未使用的read键被丢弃。read相当于dirty的快照，支持更新、删除、读取，dirty支持更新、删除、读取、插入。</p>
+<h3 id="解决方案-3"><a href="#解决方案-3" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>Store</strong></p>
+<ul>
+<li><p>更新read中存在的项→直接cas更新</p>
+</li>
+<li><p>更新read中不存在的项或cas更新失败→加锁访问dirty，双检查，若存在值则更新</p>
+</li>
+<li><p>更新read和dirty中都不存在的项→新值添加到dirty</p>
+</li>
+</ul>
+<p><strong>Load</strong></p>
+<ul>
+<li><p>读取read中存在的项→直接返回</p>
+</li>
+<li><p>读取read中不存在的项→从dirty中读取并返回</p>
+</li>
+</ul>
+<p><strong>Delete</strong></p>
+<ul>
+<li>参考Load流程，从读到的位置删除</li>
+</ul>
+<p><strong>LoadOrStore</strong></p>
+<p><strong>LoadAndDelete</strong></p>
+<h3 id="参考资料-1"><a href="#参考资料-1" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1818000">看过这篇剖析，你还不懂 Go sync.Map 吗？ - 腾讯云开发者社区-腾讯云</a></p>
+<h2 id="sync-Pool"><a href="#sync-Pool" class="headerlink" title="sync.Pool"></a>sync.Pool</h2><p>保存一组可独立访问的<strong>临时</strong>对象</p>
+<h3 id="相关问题-6"><a href="#相关问题-6" class="headerlink" title="相关问题"></a>相关问题</h3><p>（1）local切换到victim的时机？</p>
+<h3 id="解决方案-4"><a href="#解决方案-4" class="headerlink" title="解决方案"></a>解决方案</h3><ul>
+<li><strong>New</strong>：需要设置，当调用Get无资源时会使用New新建一个资源并返回，如果未设置New则会返回Nil</li>
+<li><strong>Get</strong>：从Pool中返回一个资源，可能返回nil<ol>
+<li>首先从本地private获取</li>
+<li>再尝试从本地shared获取一个</li>
+<li>尝试从其他P的shared获取一个</li>
+<li>尝试从本地victim执行1-3</li>
+<li>尝试New</li>
+</ol>
+</li>
+<li><strong>Put</strong>：将一个资源返回给Pool<ol>
+<li>首先尝试设置本地private</li>
+<li>本地private不为空则加入到本地shared</li>
+</ol>
+</li>
+<li>victim：即将垃圾回收的资源</li>
+<li>local：当前可用资源</li>
+</ul>
+<h2 id="sync-Context"><a href="#sync-Context" class="headerlink" title="sync.Context"></a>sync.Context</h2><h3 id="底层结构-5"><a href="#底层结构-5" class="headerlink" title="底层结构"></a>底层结构</h3><p>带<strong>过期时间、结束标记和结束原因</strong>的Dict</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Context <span class="hljs-keyword">interface</span>&#123;<br>  Deadline() (deadline time.Time, ok <span class="hljs-type">bool</span>) <span class="hljs-comment">// 返回Context截止日期 ok=false时无截止日期</span><br>  Done() &lt;- <span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>&#123;&#125;									 <span class="hljs-comment">// 在Context被取消时chan会被close</span><br>  Err() <span class="hljs-type">error</span>															 <span class="hljs-comment">//	获取Done的chan被close的原因</span><br>  Value(key <span class="hljs-keyword">interface</span>&#123;&#125;) <span class="hljs-keyword">interface</span>&#123;&#125;			 <span class="hljs-comment">// 获取Context中key对应的value</span><br>&#125;<br><br>context.Background()	<span class="hljs-comment">// 返回空的、非nil、无截止日期、不会超时、不会cancel的context</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><ul>
+<li><p>Context主要作用：取消goroutine运行atomic </p>
+</li>
+<li><p>WithValue方法：向context中添加键值对</p>
+</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> valueCtx <span class="hljs-keyword">struct</span>&#123;<br>  Context<br>  key, val <span class="hljs-keyword">interface</span>&#123;&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>WithCancel方法：返回parent的副本，把副本加入到parent的child中，当paretn取消时获取通知？跟随问题，一个cancelCtx关闭会导致其所有子ctx关闭，而不会影响父ctx</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>  ctx, cancel := context.WithCancel(context.Background()) <span class="hljs-comment">// 创建当前线程的context副本</span><br>  <br>  <span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span>&#123;<br>      fmt.Println(<span class="hljs-string">&quot;goroutine exit&quot;</span>)<br>    &#125;()<br>    <br>    <span class="hljs-keyword">for</span>&#123;<br>      <span class="hljs-keyword">select</span>&#123;<br>        <span class="hljs-keyword">case</span> &lt;- ctx.Done(): <span class="hljs-comment">// 子线程监控ctx是否取消</span><br>        	<span class="hljs-keyword">return</span><br>      	<span class="hljs-keyword">default</span>:<br>	        time.Sleep(time.Second)<br>      &#125;<br>    &#125;<br>  &#125;()<br>  <br>  time.Sleep(time.Second)<br>  cancel() <span class="hljs-comment">// 调用副本context的cancel函数取消副本</span><br>  time.Sleep(<span class="hljs-number">2</span> * time.Second)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>WithTimeout方法：添加超时时间（超时时间+当前时间&#x3D;截止时间）</p>
+</li>
+<li><p>WithDeadline方法：返回parent副本，并添加一个截止时间。当截止时间到了或parent关闭或cancel调用时会关闭</p>
+</li>
+</ul>
+<h3 id="注意事项-3"><a href="#注意事项-3" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>Context一般放在函数第一个参数</li>
+<li>默认值应使用background而不是nil</li>
+<li>不能持久化</li>
+<li>key不应该是内建类型，而应该是自己定义的类型</li>
+</ul>
+<h2 id="atomic"><a href="#atomic" class="headerlink" title="atomic"></a>atomic</h2><p>提供内存屏障</p>
+<h3 id="相关方法"><a href="#相关方法" class="headerlink" title="相关方法"></a>相关方法</h3><ul>
+<li><p>Add</p>
+</li>
+<li><p>CompareAndSwap</p>
+</li>
+<li><p>Swap 返回旧值</p>
+</li>
+<li><p>Load</p>
+</li>
+<li><p>Store</p>
+</li>
+<li><p>atomic.Value，原子地存取任意类型，但只能存取（新版本好像支持swap了？）</p>
+</li>
+</ul>
+<h2 id="chan"><a href="#chan" class="headerlink" title="chan"></a>chan</h2><h3 id="底层结构-6"><a href="#底层结构-6" class="headerlink" title="底层结构"></a>底层结构</h3><p><strong>双指针+循环队列</strong>存数据，还有两个等待队列分别对应读写</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 底层结构</span><br>buf unsafe.Pointer	 <span class="hljs-comment">// 存放元素的循环队列的buffer</span><br>sendx <span class="hljs-type">uint16</span> <span class="hljs-comment">// send在buf中的索引</span><br>recvx <span class="hljs-type">uint16</span> <span class="hljs-comment">// recv在buf中的索引</span><br>recvq waitq <span class="hljs-comment">// 接收等待队列</span><br>sendq waitq <span class="hljs-comment">// 发送等待队列</span><br>lock mutex <span class="hljs-comment">// 互斥锁，保护所有字段</span><br><br>runtime.hchan<br>qcount 		<span class="hljs-type">uint</span> <span class="hljs-comment">// chan中已有元素数量</span><br>dataqsiz  <span class="hljs-type">uint</span> <span class="hljs-comment">// chan队列大小</span><br>elemsize <span class="hljs-type">uint16</span>	<span class="hljs-comment">// chan中元素的大小</span><br>closed <span class="hljs-type">uint32</span>	<span class="hljs-comment">// chan是否关闭</span><br>elemtype *_type <span class="hljs-comment">// chan中元素类型</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="使用方法-1"><a href="#使用方法-1" class="headerlink" title="使用方法"></a>使用方法</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">chan</span> <span class="hljs-type">string</span> 			<span class="hljs-comment">// 发送接收string</span><br><span class="hljs-keyword">chan</span> &lt;- <span class="hljs-keyword">struct</span>&#123;&#125; 	<span class="hljs-comment">// 只能发送struct</span><br>&lt;-<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>				<span class="hljs-comment">// 只能接收int </span><br>&lt;- 尽量和左边的 <span class="hljs-keyword">chan</span> 结合<br><br><span class="hljs-comment">// 必须初始化才能使用，默认为nil</span><br><span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>, capacity)<br><br><span class="hljs-comment">// 发送数据</span><br>ch &lt;- <span class="hljs-number">2000</span><br><br><span class="hljs-comment">// 接收数据</span><br>&lt;- ch<br><br><span class="hljs-comment">// chan close后可能返回0值，需要使用第二个返回值判断？</span><br>val, err := &lt;- ch <span class="hljs-comment">// err = true 未关闭 err = false 已关闭</span><br><br><span class="hljs-comment">// 关闭chan</span><br><span class="hljs-built_in">close</span>(ch)<br><br><span class="hljs-comment">// 容量</span><br><span class="hljs-built_in">cap</span>(ch)<br><br><span class="hljs-comment">// 长度</span><br><span class="hljs-built_in">len</span>(ch)<br><br><span class="hljs-comment">// select</span><br><span class="hljs-keyword">select</span>&#123;<br>  <span class="hljs-keyword">case</span> val:=&lt;- ch:<br>  <span class="hljs-keyword">case</span> ch&lt;-i:<br>&#125;<br><br><span class="hljs-comment">// range</span><br><span class="hljs-keyword">for</span> v:= <span class="hljs-keyword">range</span> ch&#123;<br>  <br>&#125;<br><br><span class="hljs-comment">// clear</span><br><span class="hljs-keyword">for</span> <span class="hljs-keyword">range</span> ch&#123;<br>  <br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 如何保证单向chan？</span><br><br><span class="hljs-comment">// send</span><br><span class="hljs-number">1.</span> <span class="hljs-keyword">chan</span>为<span class="hljs-literal">nil</span>，阻塞<br><span class="hljs-number">2.</span> <span class="hljs-keyword">chan</span>已<span class="hljs-built_in">close</span>，<span class="hljs-built_in">panic</span><br><span class="hljs-number">3.</span> <span class="hljs-keyword">chan</span>已满，且不想被阻塞，直接返回？<br><span class="hljs-number">4.</span> recvq还有等待者，直接将send内容转交给receiver，不进入<span class="hljs-keyword">chan</span> buf<br><span class="hljs-number">5.</span> 否则放入<span class="hljs-keyword">chan</span> buf<br><span class="hljs-number">6.</span> 若buf已满则加入sendq<br><br><span class="hljs-comment">// recv</span><br><span class="hljs-number">1.</span> <span class="hljs-keyword">chan</span>为<span class="hljs-literal">nil</span>，阻塞<br><span class="hljs-number">2.</span> <span class="hljs-keyword">chan</span> <span class="hljs-built_in">close</span>且<span class="hljs-keyword">chan</span>为空，返回&#123;<span class="hljs-number">0</span>, <span class="hljs-literal">false</span>&#125;;<span class="hljs-keyword">chan</span> <span class="hljs-built_in">close</span>且<span class="hljs-keyword">chan</span>不为空，返回&#123;val, <span class="hljs-literal">true</span>&#125;<br><span class="hljs-number">3.</span> 若buf有元素，则取出一个元素返回<br><span class="hljs-number">4.</span> 若buf为空，且sendq有等待者，则从sender中弹出一个将其数据返回给receiver（无缓存channel）<br><span class="hljs-number">5.</span> 若buf为空，且sendq无等待者，则加入recvq阻塞<br><br><span class="hljs-comment">// close</span><br><span class="hljs-number">1.</span> <span class="hljs-keyword">chan</span>为<span class="hljs-literal">nil</span>或已经<span class="hljs-built_in">close</span>则<span class="hljs-built_in">panic</span><br><span class="hljs-number">2.</span> 否则移除waitq和recvq所有成员，移除并唤醒<br></code></pre></td></tr></table></figure>
+<h3 id="注意事项-4"><a href="#注意事项-4" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>关闭和发送前检查chan是否可用？<ul>
+<li>close nil chan</li>
+<li>send close chan</li>
+<li>close close chan</li>
+</ul>
+</li>
+<li>ch返回时必须有一个receiver，否则会阻塞。unbuffered chan buf大小为0，容易阻塞</li>
+</ul>
+<h3 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h3><p>反射操作，同时监控多个chan</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">createCases</span><span class="hljs-params">(chs ... <span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)</span></span> []reflect.SelectCase&#123;<br>    cases := <span class="hljs-built_in">make</span>([]reflect.SelectCase)<br>    <span class="hljs-keyword">for</span> _, ch := <span class="hljs-keyword">range</span> chs&#123;<br>        cases = <span class="hljs-built_in">append</span>(cases, reflect.SelectCase&#123;<br>            Dir: reflect.SelectRecv,<br>            Chan: reflect.ValueOf(ch),<br>        &#125;)<br>    &#125;<br>    <span class="hljs-keyword">for</span> _, ch := <span class="hljs-keyword">range</span> chs&#123;<br>        cases = <span class="hljs-built_in">append</span>(cases, reflect.SelectCase&#123;<br>            Dir: reflect.SelectSend,<br>            Chan: reflect.ValueOf(ch),<br>            Send: v,<br>        &#125;)<br>    &#125;    <br>    <span class="hljs-keyword">return</span> cases<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    ch1 := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>, <span class="hljs-number">10</span>)<br>    ch2 := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>, <span class="hljs-number">10</span>)<br>    cases := createCases(ch1, ch)<br>    <br>    <span class="hljs-keyword">for</span> i:=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">10</span>;i++&#123;<br>        chosen, recv, ok := reflect.Select(cases)<br>        <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h2><p>指令重排序：goroutine内部保证变量按声明顺序初始化</p>
+<p>init函数：</p>
+<ol>
+<li>包p导入了包q，则q的init一定happens before p的任何初始化代码</li>
+<li>main函数一定在导入包的init函数之后执行</li>
+<li>包级别的变量在同一文件中按声明顺序初始化，除非其初始化时依赖同一个包下其他文件的变量</li>
+<li>只保证本包下的变量可以按依赖关系初始化，不同包的init函数按文件名顺序初始化</li>
+</ol>
+<p>启动goroutine的go语句执行一定happens before此goroutine内代码执行，因此传入goroutine的参数一定在传入之前就计算完成</p>
+<p>Chan</p>
+<ul>
+<li><p>channel的发送操作happens before从channel中接受对应数据的动作</p>
+</li>
+<li><p>close Chan happends before从close的channel中读出零值，</p>
+</li>
+<li><p>unbuffered chan从外部读取数据调用一定happens before chan向外发送数据的调用</p>
+</li>
+<li><p>Chan的容量是m，则第n个receive一定happens before第n+m个send（不能超出Chan容量）</p>
+</li>
+</ul>
+<p>Mutex</p>
+<ul>
+<li>第n次Unlock一定happens before第n+1次lock的返回</li>
+<li>RWMutex的第n个Lock方法已经返回，则其第n个Unlock方法一定happens before任意一个Rlock的返回，只要这些方法调用happens after第n个Lock的返回</li>
+<li>RWMutex第n个RLock调用已返回，则第k（k&lt;&#x3D;n）个成功的RUnlock的返回一定happens before任意RUnlock的返回，只要这些Lock方法调用happens after第n次RLock（写锁一定在所有读锁释放后才可以获取）</li>
+</ul>
+<p>WaitGroup</p>
+<ul>
+<li>Wait方法等到计数值归零后才返回</li>
+</ul>
+<p>Once</p>
+<ul>
+<li>once.Do(f)中f函数的单次调用一定happens before任何once.Do(f)调用的返回</li>
+</ul>
+<p>atomic</p>
+<ul>
+<li>无明确保证</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/" class="category-chain-item">知识框架</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/Go/" class="category-chain-item">Go</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/">#知识框架</a>
+      
+        <a href="/tags/Go/">#Go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【Go】Go并发编程</div>
+      <div>https://ai1urus.github.io/知识框架/Go/Go并发/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Jian Liu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月11日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" title="【计算机网络】基础知识汇总">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【计算机网络】基础知识汇总</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/VSCode%E8%BF%9E%E6%8E%A5VMware%E8%99%9A%E6%8B%9F%E6%9C%BA/" title="VSCode连接VMware虚拟机">
+                        <span class="hidden-mobile">VSCode连接VMware虚拟机</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
