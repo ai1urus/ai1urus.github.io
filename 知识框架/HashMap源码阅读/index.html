@@ -19,7 +19,7 @@
     <meta name="description" content="注释部分 HashMap比Hashtable相比，少了同步，多了对null key的支持。  假定元素在bucket中均匀分布的前提下，get和set是常数复杂度。迭代的性能取决于HashMap的容量，因此当迭代性能比较重要时要避免将初始容量设置过大（或load factor设置过低）。  HashMap的性能受初始容量和load factor影响。load factor定义了HashMap可容纳">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Java】HashMap源码阅读">
-<meta property="og:url" content="https://ai1urus.github.io/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/HashMap%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/index.html">
+<meta property="og:url" content="https://ailurus.club/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/HashMap%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/index.html">
 <meta property="og:site_name" content="Ai1urus&#39;s Blog">
 <meta property="og:description" content="注释部分 HashMap比Hashtable相比，少了同步，多了对null key的支持。  假定元素在bucket中均匀分布的前提下，get和set是常数复杂度。迭代的性能取决于HashMap的容量，因此当迭代性能比较重要时要避免将初始容量设置过大（或load factor设置过低）。  HashMap的性能受初始容量和load factor影响。load factor定义了HashMap可容纳">
 <meta property="og:locale" content="zh_CN">
@@ -72,7 +72,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ai1urus.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"ailurus.club","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -545,7 +545,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>【Java】HashMap源码阅读</div>
-      <div>https://ai1urus.github.io/知识框架/HashMap源码阅读/</div>
+      <div>https://ailurus.club/知识框架/HashMap源码阅读/</div>
     </div>
     <div class="license-meta">
       

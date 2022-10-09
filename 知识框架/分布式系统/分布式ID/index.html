@@ -19,7 +19,7 @@
     <meta name="description" content="分布式ID 特性  全局唯一 趋势递增（不必连续） 单调递增 信息安全（使用不连续id防止信息泄露） *包含时间戳（了解ID生成时间）  需求  高可用：5个9？？ 低延迟：平均延迟和TP999延迟都要低 高QPS  方案 1.UUID 保证唯一 缺点：无序从而导致索引分裂、作为主键太长 2.数据库递增主键 缺点：高并发情况下不适用 2.1 数据库分库分步长递增生成 缺点：失去单调递增特性，只能做">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【分布式系统】分布式ID">
-<meta property="og:url" content="https://ai1urus.github.io/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/%E5%88%86%E5%B8%83%E5%BC%8FID/index.html">
+<meta property="og:url" content="https://ailurus.club/%E7%9F%A5%E8%AF%86%E6%A1%86%E6%9E%B6/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/%E5%88%86%E5%B8%83%E5%BC%8FID/index.html">
 <meta property="og:site_name" content="Ai1urus&#39;s Blog">
 <meta property="og:description" content="分布式ID 特性  全局唯一 趋势递增（不必连续） 单调递增 信息安全（使用不连续id防止信息泄露） *包含时间戳（了解ID生成时间）  需求  高可用：5个9？？ 低延迟：平均延迟和TP999延迟都要低 高QPS  方案 1.UUID 保证唯一 缺点：无序从而导致索引分裂、作为主键太长 2.数据库递增主键 缺点：高并发情况下不适用 2.1 数据库分库分步长递增生成 缺点：失去单调递增特性，只能做">
 <meta property="og:locale" content="zh_CN">
@@ -72,7 +72,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ai1urus.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"ailurus.club","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -489,7 +489,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>【分布式系统】分布式ID</div>
-      <div>https://ai1urus.github.io/知识框架/分布式系统/分布式ID/</div>
+      <div>https://ailurus.club/知识框架/分布式系统/分布式ID/</div>
     </div>
     <div class="license-meta">
       
